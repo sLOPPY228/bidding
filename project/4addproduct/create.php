@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
     require 'db_connect.php';
     if (isset($_POST["save"])) {
         // echo"<pre>";
@@ -51,7 +51,7 @@
         }
 
     }
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,14 +75,16 @@
          </ul>
      </div>
    </nav>
-   
-   <form action="create.php " method="post" class="product">
+   <!-- nav end -->
+
+
+   <form action="filesendlogic.php " method="post" class="product">
         <div class="product-data">
             <label>Product Name</label>
             <input type="text" name="product-name">
         </div>
 
-        <div class="product-data">
+        <!-- <div class="product-data">
             <label>Category</label>
             <select name="" id="" value="category" name="category">
                 <option value="Painting">Painting</option>
@@ -90,7 +92,7 @@
                 <option value="Pixel Art">Pixel Art</option>
                 <option value="Sculpture">Sculpture</option>
             </select>
-        </div>
+        </div> -->
 
         <div class="product-data">
             <label for="Description" >Description</label>
@@ -107,7 +109,7 @@
             <input type="number" value="bid1" name="bid1">
         </div>
 
-        <div class="product-data">
+        <!-- <div class="product-data">
             <label for="Bidding End Date/Time">Bidding End Date/Time</label>
             <input type="datetime-local" value="date"  name="date" id="">
         </div>
@@ -115,11 +117,13 @@
         <div class="product-data">
             <label for="Product Image">Product Image</label>
             <input type="file" name="image" accept=".jpg, .jpeg, .png" ><br>
-        </div>
+        </div> -->
 
         <div class="product-data">
             <button type="submit" name="save">Save</button>
         </div>
    </form>
+<!-- form end -->
+
 </body>
 </html>

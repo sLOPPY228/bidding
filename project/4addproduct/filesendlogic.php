@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "localhost";  
 $username = "root";
 $password = "";
 $dbname = "phpgallery";
@@ -11,19 +11,23 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    // $category = $_POST["category"];
+    $name = $_POST["product-name"];
+    $description = $_POST["description"];
+    $start_bid = $_POST["bid1"];
+    $regular_price = $_POST["price"];
 
-    $sql = "SELECT * FROM login_data WHERE username = '$username' AND password = '$password'";
-    $result = $conn->query($sql);
+    
 
-    if ($result->num_rows > 0) {
-        header("Location: ../3homepage/homepage.php");
-        exit();
-    } else {
-        echo "Invalid username or password";
-    }
+    $sql = "INSERT INTO products (name,description,start_bid,regular_price) 
+    VALUES ('$name','$description','$start_bid','$regular_price')";
+
+    // if ($conn->query($sql) === TRUE) {
+    //     header("location: ../login/signin.html");
+    //     exit();
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . $conn->error;
+    // }
 }
-
 $conn->close();
 ?>
