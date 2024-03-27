@@ -1,0 +1,169 @@
+/* Reset default browser styles */
+@import url('https://fonts.cdnfonts.com/css/zeyada');
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+/* nav begin */
+nav{
+  /* padding-top: 30px; */
+  background-color: rgb(245, 242, 242);
+  padding-right: 10px;
+  padding-left: 10px;
+  /* background-color: bisque; */
+  height: 100px;
+  max-height: 100px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+ 
+}
+
+.logo{
+    /* padding-right: 20px; */
+    margin-top: 15px;
+    font-size: 50px;
+    font-family: zeyada;
+    font-weight: 550;
+}
+.menu ul{
+    display: flex;
+    align-items: center;
+    font-family: 'poppins';
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    
+}
+.menu ul li{
+    
+    font-size: 16px;
+    padding-left: 50px;
+    list-style: none;
+}
+.menu ul li a{ 
+    text-decoration: none;
+    color: black;
+}
+.menu ul li img{
+    
+    width: 50px;
+    height:50px ;
+    border-radius: 100%;
+}
+/* navigation bar end */
+
+  
+  /* User Image */
+  .userimg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-top: 20px;
+  }
+  
+  /* Carousel */
+  .carousel-container {
+    width: 80%;
+    margin: 20px auto;
+    overflow: hidden;
+  }
+  
+.carousel-item img{
+  height: 40px;
+  width: 40px;
+}
+
+  .carousel-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .carousel-item {
+    flex: 0 0 100%;
+  }
+  
+  .carousel-item img {
+    width: 100%;
+    height: 400px;
+    border-radius: 8px;
+  }
+  
+  .next-btn,
+  .prev-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .next-btn {
+    right: 10px;
+  }
+  
+  .prev-btn {
+    left: 10px;
+  }
+  
+  /* Container Description */
+  .container_description {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .container_description h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .container_description h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .container_description p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  /* Bid Form */
+  #bid-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #bid-form label {
+    font-weight: bold;
+  }
+  
+  #bid-amount {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  #bid-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #bid-form button:hover {
+    background-color: #0056b3;
+  }
+  

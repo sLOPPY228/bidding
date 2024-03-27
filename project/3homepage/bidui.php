@@ -1,3 +1,14 @@
+<?php
+$conn= new mysqli('localhost','root','','phpgallery')or die("Could not connect to mysql".mysqli_error($con));
+
+// Check if the email already exists
+$query = "SELECT * FROM products";
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$result = $stmt->get_result();
+$r = $result;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,20 +82,20 @@
     </div>
 
 
-    
-
-
-
     <div class="container_description" style="border: 2 2 2 2;">
+    <?php foreach($result as $r){ ?>
     <h1>user name</h1>
-    <h3>product description</h3>
-    <p>Minimum Bid Amount: $<span id="current-bid">100</span></p>
+    <h3><?php echo $r['description']; ?></h3>
+    <p>Minimum Bid Amount:<?php echo $r['start_bid']; ?></span></p>
     <form id="bid-form">
       <label for="bid-amount">Enter your bid:</label>
-      <input type="number" id="bid-amount" name="bid-amount" min="101" required>
+      <input type="number" id="bid-amount" name="bid-amount" min="<?php echo $r['start_bid']; ?>" required>
       <button type="submit">Place Bid</button>
     </form>
   </div>
+  <?php } ?>
+
+
 
   <script>
     // This is just example Javascript, not functional for processing bids

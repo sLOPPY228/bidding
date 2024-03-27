@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 include 'database.php';
 
 // Check if the email already exists
@@ -6,7 +6,7 @@ $query = "SELECT * FROM requests";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="en">

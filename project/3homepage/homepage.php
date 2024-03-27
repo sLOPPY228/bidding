@@ -1,3 +1,13 @@
+<?php
+$conn= new mysqli('localhost','root','','phpgallery')or die("Could not connect to mysql".mysqli_error($con));
+
+// Check if the email already exists
+$query = "SELECT * FROM products";
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$result = $stmt->get_result();
+?>
+
 <!DOCTYPE html>
   <head>
     <link rel="stylesheet" href="homepage.css" />
@@ -30,69 +40,20 @@
 <!-- container product start -->
 
 <div class="container_product" ">
+<?php foreach($result as $r){ ?>
     <div class="item_product">
-      <img src="./pfp.png" alt="item 1">
-      <h3>item 1</h3>
-      <p>Description of item 1</p>
-      <p>$20.00</p>
+    <td class="imgCell">
+        <?php if($r['P_image'] != null) ?>
+        <img src="../pic/<?php echo $r['P_image']; ?>" alt="Image">
+        </td>
+      <h3><?php echo $r['name']; ?></h3>
+      <p><?php echo $r['description']; ?></p>
+      <p>Star Bid</p>
+      <P><?php echo $r['start_bid']; ?></P>
       <button><a href="bidui.php">Bid item</a></button>
     </div>
-    <div class="item_product">
-      <img src="pfp.png" alt="item_product 2">
-      <h3>item_product 2</h3>
-      <p>Description of item_product 2</p>
-      <p>$25.00</p>
-      <button><a href="bidui.php">Bid item</a></button>
-    </div>
-    <div class="item_product">
-      <img src="pfp.png" alt="item_product 3">
-      <h3>item_product 3</h3>
-      <p>Description of item_product 3</p>
-      <p>$30.00</p>
-      <button><a href="bidui.php">Bid item</a></button>
-    </div>
-    <div class="item_product">
-      <img src="pfp.png" alt="item 1">
-      <h3>item 1</h3>
-      <p>Description of item 1</p>
-      <p>$20.00</p>
-      <button><a href="bidui.php">Bid item</a></button>
-    </div>
-    <div class="item_product">
-      <img src="pfp.png" alt="item_product 2">
-      <h3>item_product 2</h3>
-      <p>Description of item_product 2</p>
-      <p>$25.00</p>
-      <button><a href="bidui.php">Bid item</a></button>
-    </div>
-    <div class="item_product">
-      <img src="pfp.png" alt="item_product 3">
-      <h3>item_product 3</h3>
-      <p>Description of item_product 3</p>
-      <p>$30.00</p>
-      <button><a href="bidui.php">Bid item</a></button>
-    </div>
-    <div class="item_product">
-      <img src="pfp.png" alt="item 1">
-      <h3>item 1</h3>
-      <p>Description of item 1</p>
-      <p>$20.00</p>
-      <button><a href="bidui.php">Bid item</a></button>
-    </div>
-    <div class="item_product">
-      <img src="pfp.png" alt="item_product 2">
-      <h3>item_product 2</h3>
-      <p>Description of item_product 2</p>
-      <p>$25.00</p>
-      <button><a href="bidui.php">Bid item</a></button>
-    </div>
-    <div class="item_product">
-      <img src="pfp.png" alt="item_product 3">
-      <h3>item_product 3</h3>
-      <p>Description of item_product 3</p>
-      <p>$30.00</p>
-      <button><a href="bidui.php">Bid item</a></button>
-    </div>
+    <?php } ?>
+    
     
     
     <!-- Add more item_products here -->

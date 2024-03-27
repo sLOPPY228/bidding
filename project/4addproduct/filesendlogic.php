@@ -24,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     VALUES ('$name','$category','$description','$start_bid','$regular_price','$Bid_end','$P_image')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "file uploaded successfully";
-        // header("location: ../login/signin.html");
+        // alert "file uploaded successfully";
+        header("location: ./product.php");
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

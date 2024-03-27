@@ -1,0 +1,42 @@
+@import url('./global.css');
+@import url('./nav.css');
+
+main{
+  padding: 4rem;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+table .imgCell{
+  display: flex;
+  column-span: 2/-2;
+  aspect-ratio: 21/9;
+  overflow: scroll;
+}
+
+table button{
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+  color:white;
+}
+
+.acceptBtn{
+  background-color: green;
+}
+
+.deleteBtn{
+  background-color: red;
+}

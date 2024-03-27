@@ -1,4 +1,6 @@
 <?php
+include "./components/nav.php";
+
 $servername = "localhost";
 $username = "root";
 $password = "";
