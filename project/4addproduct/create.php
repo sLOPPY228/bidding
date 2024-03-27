@@ -84,15 +84,15 @@
             <input type="text" name="product-name">
         </div>
 
-        <!-- <div class="product-data">
+        <div class="product-data">
             <label>Category</label>
-            <select name="" id="" value="category" name="category">
+            <select  name="category">
                 <option value="Painting">Painting</option>
                 <option value="Fine Art">Fine Art</option>
                 <option value="Pixel Art">Pixel Art</option>
                 <option value="Sculpture">Sculpture</option>
             </select>
-        </div> -->
+        </div>
 
         <div class="product-data">
             <label for="Description" >Description</label>
@@ -100,27 +100,27 @@
         </div>
 
         <div class="product-data">
+            <label for="Starting bid">Starting bid</label>
+            <input type="number" value="bid1" name="bid1">
+        </div>
+        
+        <div class="product-data">
             <label for="Regular Price">Regular Price</label>
             <input type="number" value="price" name="price">
         </div>
 
         <div class="product-data">
-            <label for="Starting bid">Starting bid</label>
-            <input type="number" value="bid1" name="bid1">
-        </div>
-
-        <!-- <div class="product-data">
             <label for="Bidding End Date/Time">Bidding End Date/Time</label>
-            <input type="datetime-local" value="date"  name="date" id="">
+            <input type="datetime-local" value="date"  name="end_date" id="">
         </div>
 
         <div class="product-data">
             <label for="Product Image">Product Image</label>
             <input type="file" name="image" accept=".jpg, .jpeg, .png" ><br>
-        </div> -->
+        </div>
 
         <div class="product-data">
-            <button type="submit" name="save">Save</button>
+            <button type="submit" name="Add" >Add Product</button>
         </div>
    </form>
 <!-- form end -->
