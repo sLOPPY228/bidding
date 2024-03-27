@@ -1,21 +1,19 @@
 @import url('https://fonts.cdnfonts.com/css/zeyada');
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
-body{
-    margin:20px;
-    /* background-color: rgba(0, 0, 0, 0.408); */
-}
+
 nav{
     /* padding-top: 30px; */
-    
+    background-color: rgb(245, 242, 242);
     padding-right: 10px;
     padding-left: 10px;
     /* background-color: bisque; */
     height: 100px;
     max-height: 100px;
-    display: flex;
     justify-content: space-between;
     align-items: center;
+    display: flex;
+    flex-wrap: wrap;
    
 }
 .logo{
@@ -52,9 +50,56 @@ nav{
 }
 form{
     display: grid;
+    align-content: baseline;
    
     
 }
 .product-data{
     padding: 5px;
 }
+
+
+
+.product {
+    margin: 20px auto;
+    width: 400px;
+    font-family: Arial, sans-serif;
+}
+
+.product-data {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+select {
+    width: calc(100% + 2px); /* To account for the border width */
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+#description_box{
+    height: 100px;
+}
+    
