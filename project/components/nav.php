@@ -18,6 +18,7 @@
             ?>
             <!-- <li><a href="#"><img src="../pic/pfp.png"></a></li> -->
             <li><p><?= $_SESSION['username'];?></p></li>
+            
         </ul>
     </div>
 </nav>

@@ -1,14 +1,8 @@
-
-
 <?php
 include 'db_connect.php';
-
-// Check if the email already exists
-$query = "SELECT * FROM products";
-$stmt = $conn->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -20,11 +14,27 @@ $result = $stmt->get_result();
   </head>
   <body>
 
+
     <!-- navigation bar begin -->
    <?php
    require_once "../components/nav.php";
    ?>
    <!-- navigation bar ends -->
+   
+   
+   <!-- userphpstart -->
+   <?php
+
+if(isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
+  $userid = $_SESSION['userid'];
+}
+
+$query = "SELECT * FROM products where user_id = $userid";
+$result = $conn->query($query);
+$r = $result;
+ ?>
+   <!-- userphpend -->
+   
     
    <table>
       <div class="content">
@@ -57,8 +67,8 @@ $result = $stmt->get_result();
         <img src="../<?php echo $r['P_image']; ?>" alt="Image">
         </td>
          <td>
-          <button class="editBtn">Edit</button>
-         <button class="deleteBtn">Delete</button>
+          <button class="editBtn" >Edit</button>
+         <button class="deleteBtn"><a href="filedeletelogic.php?id=<?php echo $r["id"]; ?>">Delete</a></button>
         </td>
          
   </tr>

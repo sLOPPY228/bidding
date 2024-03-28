@@ -1,5 +1,5 @@
 <?php
-$conn= new mysqli('localhost','root','','phpgallery')or die("Could not connect to mysql".mysqli_error($con));
+include 'db_connect.php';
 if (!isset($_GET["id"])) {
   echo "no id found";
 die();
@@ -7,9 +7,7 @@ die();
 $id = $_GET["id"];
 // Check if the email already exists
 $query = "SELECT * FROM products where id=$id";
-$stmt = $conn->prepare($query);
-$stmt->execute();
-$result = $stmt->get_result();
+$result = $conn->query($query);
 $r = $result;
 ?>
 
@@ -43,7 +41,7 @@ $r = $result;
   </div>
   
       <div class="container_description" style="border: 2 2 2 2;">
-      <h1>user name</h1>
+      <h1>User name:<?php echo $r['username']; ?></h1>
       <h3><?php echo $r['description']; ?></h3>
       <p>Minimum Bid Amount:<?php echo $r['start_bid']; ?></span></p>
       <form id="bid-form">
