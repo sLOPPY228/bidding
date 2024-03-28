@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];    
     $password = $_POST["password"];
     $repassword = $_POST["confirmpassword"];
+    $usertype = 0;
 
 
     if (!preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("email already exists. Please choose a different email.");
     }
     
-    $sql = "INSERT INTO login_data (username,email, password) VALUES ('$username', '$email','$password')";
+    $sql = "INSERT INTO login_data (username,email, password,usertype) VALUES ('$username', '$email','$password','$usertype')";
 
 
     if ($conn->query($sql) === TRUE) {

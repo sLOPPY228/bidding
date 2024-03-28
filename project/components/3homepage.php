@@ -1,5 +1,5 @@
 <?php
-$conn= new mysqli('localhost','root','','phpgallery')or die("Could not connect to mysql".mysqli_error($con));
+include 'db_connect.php';
 
 // Check if the email already exists
 $query = "SELECT * FROM products";
@@ -22,9 +22,14 @@ $result = $stmt->get_result();
 
 
    <!-- navigation bar begin -->
-   <?php
-   require_once "../components/nav.php";
-   ?>
+   <?php 
+if ($_SESSION["usertype"]==0) {
+    require_once "../components/nav.php";
+}else {
+    require_once "../components/adminnav.php";
+}
+
+?>
    <!-- navigation bar ends -->
 
 

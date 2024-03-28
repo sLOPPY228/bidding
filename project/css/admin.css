@@ -1,0 +1,90 @@
+
+@import url('https://fonts.cdnfonts.com/css/zeyada');
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+/* <span style="font-family: verdana, geneva, sans-serif;">@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'); */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body{
+  background: white;
+}
+.wrapper{
+  width: 500px;
+  padding: 2rem 0 1rem 0;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  border: solid black;
+}
+nav{
+    font-weight: 590;
+    margin-top: 125px;
+    display: flex;
+    justify-content: center;
+    font-size: 80px;
+  }
+  nav a{
+  font-family:zeyada;
+    text-decoration: none !important;
+    color: black;
+}
+h1{
+  font-size: 2rem;
+  color: #07001f;
+}
+h2{
+  margin-bottom: 1.7rem;
+}
+form input{
+    margin-top: 5px;
+  width: 85%;
+  outline: none;
+  border: none;
+  background: white;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: solid black 2px;
+}
+.forget{
+  text-align: right;
+  font-size: 0.8rem;
+  margin: 0.2rem 2.4rem 0 0;
+}
+.forget a{
+  text-decoration: none;
+  color: #07001f;
+}
+button{
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  padding: 10px 0;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  width: 85%;
+  background: #7FA6EE;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover{
+  background: black;
+}
+
+.not-member{
+  font-size: 0.8rem;
+  margin-top: 1.4rem;
+}
+.not-member a{
+  color: #7FA6EE;
+  text-decoration: none;
+}
+a:hover{
+  text-decoration:underline;
+}

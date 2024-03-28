@@ -14,15 +14,16 @@ include 'db_connect.php';
   </head>
   <body>
 
+<!-- navigation bar begin -->
+<?php 
+if ($_SESSION["usertype"]==0) {
+    require_once "../components/nav.php";
+}else {
+    require_once "../components/adminnav.php";
+}
 
-    <!-- navigation bar begin -->
-   <?php
-   require_once "../components/nav.php";
-   ?>
+?>
    <!-- navigation bar ends -->
-   
-   
-   <!-- userphpstart -->
    <?php
 
 if(isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {

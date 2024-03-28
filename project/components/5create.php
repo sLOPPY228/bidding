@@ -1,4 +1,6 @@
-
+<?php
+include 'db_connect.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,10 +11,15 @@
     <link rel="stylesheet" href="../css/create.css">
 </head>
 <body>
-   <!-- navigation bar begin -->
-   <?php
-   require_once "../components/nav.php";
-   ?>
+<!-- navigation bar begin -->
+<?php 
+if ($_SESSION["usertype"]==0) {
+    require_once "../components/nav.php";
+}else {
+    require_once "../components/adminnav.php";
+}
+
+?>
    <!-- navigation bar ends -->
 
 

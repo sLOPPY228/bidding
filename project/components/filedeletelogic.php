@@ -12,6 +12,7 @@ $data=mysqli_query($conn,$query);
 
 if ($data) {
     echo "data deleted";
+    header("Location:3homepage.php");
 } else {
     echo "error";
 }
