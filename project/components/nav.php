@@ -1,65 +1,23 @@
-
-<style>
-  @import url('https://fonts.cdnfonts.com/css/zeyada');
-  @import url('https://fonts.googleapis.com/css?family=Poppins');
- nav{
-    /* padding-top: 30px; */
-    background-color: rgb(245, 242, 242);
-    padding-right: 10px;
-    padding-left: 10px;
-    /* background-color: bisque; */
-    height: 100px;
-    max-height: 100px;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-   
-}
-.logo{
-    /* padding-right: 20px; */
-    margin-top: 15px;
-    font-size: 50px;
-    font-family: zeyada;
-    font-weight: 550;
-}
-.menu ul{
-    display: flex;
-    align-items: center;
-    font-family: 'poppins';
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    
-}
-.menu ul li{
-    
-    font-size: 16px;
-    padding-left: 50px;
-    list-style: none;
-}
-.menu ul li a{ 
-    text-decoration: none;
-    color: black;
-}
-.menu ul li img{
-    
-    width: 50px;
-    height:50px ;
-    border-radius: 100%;
-}
-</style>
+<link rel="stylesheet" href="../css/nav.css">
+<?php session_start(); ?>
 <nav>
-      <div class="logo">
-        Galler-E
-      </div>
-      <div class="menu">
+    <div class="logo">
+        Galler-E 
+    </div>
+    <div class="menu">
         <ul>
-          <li><a href="../3homepage/homepage.php">Home</a></li>
-          <li><a href="product.php">Products</a></li>
-          <li>
-            <a href="#"><img src="./pic/pfp.png" /></a>
-          </li>
+            <li><a href="3homepage.php">Home</a></li>
+            <li><a href="4product.php">Products</a></li>
+            <?php
+            // session_start();
+            if(isset($_SESSION['userid'])) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+            } else {
+                echo '<li><a href="2signin.php">Login</a></li>';
+            }
+            ?>
+            <!-- <li><a href="#"><img src="../pic/pfp.png"></a></li> -->
+            <li><p><?= $_SESSION['username'];?></p></li>
         </ul>
-      </div>
-    </nav>
+    </div>
+</nav>
