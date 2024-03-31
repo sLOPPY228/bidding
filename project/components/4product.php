@@ -10,16 +10,16 @@ include 'db_connect.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../css/product.css" />
+    <link rel="stylesheet" href="../css/4product.css" />
   </head>
   <body>
 
 <!-- navigation bar begin -->
 <?php 
 if ($_SESSION["usertype"]==0) {
-    require_once "../components/nav.php";
+    require_once "../components/0nav.php";
 }else {
-    require_once "../components/adminnav.php";
+    require_once "../components/0adminnav.php";
 }
 
 ?>
@@ -69,7 +69,7 @@ $r = $result;
         </td>
          <td>
           <button class="editBtn" >Edit</button>
-         <button class="deleteBtn"><a href="filedeletelogic.php?id=<?php echo $r["id"]; ?>">Delete</a></button>
+         <button class="deleteBtn" onclick='return checkdelete()'><a href="filedeletelogic.php?id=<?php echo $r["id"]; ?>">Delete</a></button>
         </td>
          
   </tr>
@@ -78,5 +78,9 @@ $r = $result;
       </div>
     </table>
   </body>
-  <style></style>
+  <script>
+    function checkdelete() {
+      return confirm("Are you sure about that?");
+    }
+  </script>
 </html>

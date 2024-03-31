@@ -10,7 +10,7 @@ $result = $stmt->get_result();
 
 <!DOCTYPE html>
   <head>
-    <link rel="stylesheet" href="../css/homepage.css" />
+    <link rel="stylesheet" href="../css/3homepage.css" />
     <title>Galler-E</title>
   </head>
 
@@ -24,9 +24,9 @@ $result = $stmt->get_result();
    <!-- navigation bar begin -->
    <?php 
 if ($_SESSION["usertype"]==0) {
-    require_once "../components/nav.php";
+    require_once "../components/0nav.php";
 }else {
-    require_once "../components/adminnav.php";
+    require_once "../components/0adminnav.php";
 }
 
 ?>
@@ -45,8 +45,8 @@ if ($_SESSION["usertype"]==0) {
         </td>
       <h3><?php echo $r['name']; ?></h3>
       <p><?php echo $r['description']; ?></p>
-      <p>Star Bid</p>
-      <P><?php echo $r['start_bid']; ?></P>
+      <p>Starting Bid : <?php echo $r['start_bid']; ?></p>
+      
       <button><a href="6bidui.php?id=<?php echo $r["id"]; ?>">Bid item</a></button>
     </div>
     <?php } ?>

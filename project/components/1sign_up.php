@@ -2,8 +2,8 @@
     <html lang="en">
       <head>
         <title>Sign Up</title>
-        <link rel="stylesheet" href="style2.css" />
-        <link rel="stylesheet" href="../css/sign_up.css">
+        
+        <link rel="stylesheet" href="../css/1sign_up.css">
       </head>
       <body>
         <nav>
@@ -15,7 +15,7 @@
           <h1>Sign Up</h1>
           <h4>It's free and only takes a minute</h4>
           <form action="1registerLogic.php" method="post">
-            <input type="text" name="username" placeholder="Username" />
+            <input type="text" name="username" required placeholder="Username"/>
             <input type="email" name="email" placeholder="Email" />
             <input type="password" name="password" placeholder="Password" />
             <input type="password" name="confirmpassword" placeholder="Confirm password" />

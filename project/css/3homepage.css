@@ -25,6 +25,11 @@ body{
     text-align: center;
     height: 500px;
   }
+  .item_product a{
+    text-decoration: none;
+    color: black;
+
+  }
  
   .item_product img {
     width: 100%;
@@ -33,7 +38,9 @@ body{
     aspect-ratio: 16/9;
     object-position: center;
     object-fit: cover;
-    height:60%;
+    height:70%;
+    pointer-events: none;
+
     
   }
   .item_product h3 {
@@ -44,6 +51,7 @@ body{
     color: #666;
     font-size: 14px;
   }
+  
 /* itemproduct :end */
 
 

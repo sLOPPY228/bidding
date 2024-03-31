@@ -18,9 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usertype = 0;
 
 
-    if (!preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
+    if (!preg_match("/^[a-zA-Z]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
         die("Invalid email format.");
     }
+    
 
     if (strlen($password) < 8 || strlen($password) > 50) {
         die("Password must be between 8 and 50 characters long.");
@@ -47,6 +48,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         die("email already exists. Please choose a different email.");
     }
+    // hashing end
+
+    // $password = password_hash($password, PASSWORD_DEFAULT);
+    // $query = "insert into users(user_id,name,email,password) values('','$name','$email','$password')";
+    // $result = mysqli_query($conn, $query);
+
+
+    // hashingstart
     
     $sql = "INSERT INTO login_data (username,email, password,usertype) VALUES ('$username', '$email','$password','$usertype')";
 

@@ -1,7 +1,5 @@
-<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/0nav.css">
 
-
-<!-- usernavstart -->
 <nav>
     <div class="logo">
         Galler-E 
@@ -10,8 +8,10 @@
         <ul>
             <li><a href="3homepage.php">Home</a></li>
             <li><a href="4product.php">Products</a></li>
+            <li><a href="7allproducts.php">All Products</a></li>
+
             <?php
-            
+            // session_start();
             if(isset($_SESSION['userid'])) {
                 echo '<li><a href="logout.php">Logout</a></li>';
             } else {
@@ -24,4 +24,3 @@
         </ul>
     </div>
 </nav>
-<!-- usernavend -->

@@ -14,20 +14,25 @@ $result = $conn->query($query);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../css/product.css" />
+    <link rel="stylesheet" href="../css/4product.css" />
   </head>
   <body>
 
-    <!-- navigation bar begin -->
-   <?php
-   require_once "../components/nav.php";
-   ?>
+   <!-- navigation bar begin -->
+   <?php 
+if ($_SESSION["usertype"]==0) {
+    require_once "../components/0nav.php";
+}else {
+    require_once "../components/0adminnav.php";
+}
+
+?>
    <!-- navigation bar ends -->
     
    <table>
       <div class="content">
-        <label for="">Your products</label>
-        <button><a href="5create.php">New post</a></button>
+        <label for="">All Products</label>
+        
       </div>
       <div class="content">
           <tr>
@@ -56,7 +61,7 @@ $result = $conn->query($query);
         </td>
          <td>
           <button class="editBtn" >Edit</button>
-         <button class="deleteBtn"><a href="filedeletelogic.php?id=<?php echo $r["id"]; ?>">Delete</a></button>
+         <button class="deleteBtn"  onclick='return checkdelete()'><a href="filedeletelogic.php?id=<?php echo $r["id"]; ?>">Delete</a></button>
         </td>
          
   </tr>
@@ -65,5 +70,9 @@ $result = $conn->query($query);
       </div>
     </table>
   </body>
-  <style></style>
+  <script>
+    function checkdelete() {
+      return confirm("Are you sure about that?");
+    }
+  </script>
 </html>

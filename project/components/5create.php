@@ -8,15 +8,15 @@ include 'db_connect.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/create.css">
+    <link rel="stylesheet" href="../css/5create.css">
 </head>
 <body>
 <!-- navigation bar begin -->
 <?php 
 if ($_SESSION["usertype"]==0) {
-    require_once "../components/nav.php";
+    require_once "../components/0nav.php";
 }else {
-    require_once "../components/adminnav.php";
+    require_once "../components/0adminnav.php";
 }
 
 ?>

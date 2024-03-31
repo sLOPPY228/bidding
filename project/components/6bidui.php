@@ -17,7 +17,7 @@ $r = $result;
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bidding Page</title>
-  <link rel="stylesheet" href="../css/bidui.css">
+  <link rel="stylesheet" href="../css/6bidui.css">
   
  
 </head>
@@ -26,9 +26,9 @@ $r = $result;
 <!-- navigation bar begin -->
 <?php 
 if ($_SESSION["usertype"]==0) {
-    require_once "../components/nav.php";
+    require_once "../components/0nav.php";
 }else {
-    require_once "../components/adminnav.php";
+    require_once "../components/0adminnav.php";
 }
 
 ?>
