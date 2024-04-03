@@ -1,0 +1,83 @@
+@import url('https://fonts.cdnfonts.com/css/zeyada');
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  
+    .product_container {
+  display: flex;
+  margin-top: 20px;
+
+}
+.container_image, .container_description {
+  flex: 1; /* This makes both child divs take up equal space */
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+.container_image {
+  margin-right: 10px; /* Add some space between the child divs */
+  overflow:hidden;
+}
+.container_image img{
+    aspect-ratio: 16/9;
+    object-position: center;
+    object-fit: cover;
+    height:100%;
+    width:100%;
+}
+
+.container_description {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+}
+
+.container_description h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.container_description h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.container_description p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+#bid-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #bid-form label {
+    font-weight: bold;
+  }
+  
+  #bid-amount {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  #bid-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #bid-form button:hover {
+    background-color: #0056b3;
+  }

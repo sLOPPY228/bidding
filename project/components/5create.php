@@ -10,6 +10,7 @@ include 'db_connect.php';
     <title>Document</title>
     <link rel="stylesheet" href="../css/5create.css">
 </head>
+
 <body>
 <!-- navigation bar begin -->
 <?php 
@@ -26,7 +27,7 @@ if ($_SESSION["usertype"]==0) {
    <form action="filesendlogic.php " method="post" class="product" enctype="multipart/form-data">
         <div class="product-data">
             <label>Product Name</label>
-            <input type="text" name="product-name">
+            <input type="text" name="product-name" required>
         </div>
 
         <div class="product-data">
@@ -46,22 +47,26 @@ if ($_SESSION["usertype"]==0) {
 
         <div class="product-data">
             <label for="Starting bid">Starting bid</label>
-            <input type="number" value="bid1" name="bid1">
+            <input type="number" value="bid1" name="bid1" required>
         </div>
         
         <div class="product-data">
             <label for="Regular Price">Regular Price</label>
-            <input type="number" value="price" name="price">
+            <input type="number" value="price" name="price" required>
         </div>
 
         <div class="product-data">
             <label for="Bidding End Date/Time">Bidding End Date/Time</label>
-            <input type="datetime-local" value="date"  name="end_date" id="">
+            <!-- <input type="datetime-local" value="date"  name="end_date" id="date" min="<?php echo date('Y-m-d'); ?>" required > -->
+            <input type="date" id="date" required name="end_date" min="" />
+            
+
+
         </div>
 
         <div class="product-data">
             <label for="Product Image">Product Image</label>
-            <input type="file" name="image" accept=".jpg, .jpeg, .png" ><br>
+            <input type="file"  name="image" accept=".jpg, .jpeg, .png" required><br>
         </div>
 
         <div class="product-data">
@@ -70,5 +75,23 @@ if ($_SESSION["usertype"]==0) {
    </form>
 <!-- form end -->
 
+
+
+<!-- no old date -->
+<script>
+    // Get today's date
+    var today = new Date();
+
+    // Set it to tomorrow
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    // Format tomorrow's date as YYYY-MM-DD
+    var tomorrowFormatted = tomorrow.toISOString().split('T')[0];
+
+    // Set the min attribute of the input field to tomorrow's date
+    document.getElementById("date").setAttribute("min", tomorrowFormatted);
+</script>
+<!-- no old date -->
 </body>
 </html>
