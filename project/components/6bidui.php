@@ -1,12 +1,12 @@
 <?php
 include 'db_connect.php';
-if (!isset($_GET["id"])) {
+if (!isset($_GET["product_id"])) {
   echo "no id found";
 die();
 }
-$id = $_GET["id"];
+$id = $_GET["product_id"];
 // Check if the email already exists
-$query = "SELECT * FROM products where id=$id";
+$query = "SELECT * FROM products where product_id=$id";
 $result = $conn->query($query);
 $r = $result;
 ?>
@@ -21,7 +21,7 @@ $r = $result;
   
  
 </head>
-<body>
+<body oncontextmenu=" return disableRightClick();">
 
 <!-- navigation bar begin -->
 <?php 

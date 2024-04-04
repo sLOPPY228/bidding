@@ -25,3 +25,7 @@
     </div>
 </nav>
 <!-- usernavend -->
+<?php
+require_once "norightclick.php";
+?>
+

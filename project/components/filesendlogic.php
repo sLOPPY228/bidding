@@ -25,11 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $image = $_FILES['image']['name'];
     $target = "../pic/".basename($image);
     $P_image = "pic/".basename($image);
+    $product_status = "ACTIVE";
     
     
 
-    $sql = "INSERT INTO products (user_id,username,name,category,description,start_bid,regular_price,Bid_end,P_image) 
-    VALUES ('$user_id','$username','$name','$category','$description','$start_bid','$regular_price','$Bid_end','$P_image')";
+    $sql = "INSERT INTO products (user_id,username,product_name,category,description,start_bid,regular_price,Bid_end,P_image,product_status) 
+    VALUES ('$user_id','$username','$name','$category','$description','$start_bid','$regular_price','$Bid_end','$P_image','$product_status')";
 
     if ($conn->query($sql) === TRUE) {
         move_uploaded_file($_FILES['image']['tmp_name'],$target);

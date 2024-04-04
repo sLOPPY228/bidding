@@ -11,7 +11,7 @@ include 'db_connect.php';
     <link rel="stylesheet" href="../css/5create.css">
 </head>
 
-<body>
+<body oncontextmenu=" return disableRightClick();">
 <!-- navigation bar begin -->
 <?php 
 if ($_SESSION["usertype"]==0) {

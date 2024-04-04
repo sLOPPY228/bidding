@@ -39,9 +39,7 @@ body{
     object-position: center;
     object-fit: cover;
     height:70%;
-    pointer-events: none;
-
-    
+    pointer-events: none; 
   }
   .item_product h3 {
     margin-top: 0;

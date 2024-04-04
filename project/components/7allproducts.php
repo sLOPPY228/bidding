@@ -16,7 +16,7 @@ $result = $conn->query($query);
     <title>Document</title>
     <link rel="stylesheet" href="../css/4product.css" />
   </head>
-  <body>
+  <body oncontextmenu=" return disableRightClick();">
 
    <!-- navigation bar begin -->
    <?php 
@@ -49,7 +49,7 @@ if ($_SESSION["usertype"]==0) {
           <?php foreach($result as $r){ ?>
         <tr>
           
-         <td><?php echo $r['name']; ?></td>
+         <td><?php echo $r['product_name']; ?></td>
          <td><?php echo $r['category']; ?></td>
          <td><?php echo $r['description']; ?></td>
          <td><?php echo $r['start_bid']; ?></td>
@@ -61,7 +61,7 @@ if ($_SESSION["usertype"]==0) {
         </td>
          <td>
           <button class="editBtn" >Edit</button>
-         <button class="deleteBtn"  onclick='return checkdelete()'><a href="filedeletelogic.php?id=<?php echo $r["id"]; ?>">Delete</a></button>
+         <button class="deleteBtn"  onclick='return checkdelete()'><a href="filedeletelogic.php?product_id=<?php echo $r["product_id"]; ?>">Delete</a></button>
         </td>
          
   </tr>

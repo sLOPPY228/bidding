@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Password do not match!");    
     }        
 
-    $sql = $conn->prepare("SELECT id FROM login_data WHERE username = ?");
+    $sql = $conn->prepare("SELECT user_id FROM login_data WHERE username = ?");
     $sql->bind_param("s", $username);
     $sql->execute();
     $result = $sql->get_result();
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Username already exists. Please choose a different username.");
     }
 
-    $sql = $conn->prepare("SELECT id FROM login_data WHERE email = ?");
+    $sql = $conn->prepare("SELECT user_id FROM login_data WHERE email = ?");
     $sql->bind_param("s", $email);
     $sql->execute();
     $result = $sql->get_result();

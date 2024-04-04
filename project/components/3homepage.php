@@ -16,7 +16,7 @@ $result = $stmt->get_result();
 
 
 
-  <body>
+  <body oncontextmenu=" return disableRightClick();">
 
 
 
@@ -43,11 +43,11 @@ if ($_SESSION["usertype"]==0) {
         <?php if($r['P_image'] != null) ?>
         <img src="../<?php echo $r['P_image']; ?>" alt="Image">
         </td>
-      <h3><?php echo $r['name']; ?></h3>
+      <h3><?php echo $r['product_name']; ?></h3>
       <p><?php echo $r['description']; ?></p>
       <p>Starting Bid : <?php echo $r['start_bid']; ?></p>
       
-      <button><a href="6bidui.php?id=<?php echo $r["id"]; ?>">Bid item</a></button>
+      <button><a href="6bidui.php?product_id=<?php echo $r["product_id"]; ?>">Bid item</a></button>
     </div>
     <?php } ?>
     

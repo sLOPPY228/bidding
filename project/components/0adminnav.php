@@ -24,3 +24,7 @@
         </ul>
     </div>
 </nav>
+
+<?php
+require_once "norightclick.php";
+?>

@@ -1,3 +1,6 @@
+<?php
+require_once "norightclick.php";
+?>
 <span style="font-family: verdana, geneva, sans-serif;"><!DOCTYPE html>
     <html lang="en">
       <head>
@@ -5,7 +8,7 @@
         
         <link rel="stylesheet" href="../css/1sign_up.css">
       </head>
-      <body>
+      <body oncontextmenu=" return disableRightClick();">
         <nav>
         
           <a href="galler-E.html">Galler-E</a>
@@ -27,4 +30,5 @@
           </p>
         </div>
       </body>
+      
     </html></span>

@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $_SESSION["userid"] = $row["id"]; // Assuming your user id column name is 'id'
+        $_SESSION["userid"] = $row["user_id"]; // Assuming your user id column name is 'id'
         $_SESSION["username"] = $row["username"];
         $_SESSION["usertype"] = $row["usertype"];
         header("Location:3homepage.php");
