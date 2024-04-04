@@ -49,56 +49,18 @@ if ($_SESSION["usertype"]==0) {
       <h1>User name:<?php echo $r['username']; ?></h1>
       <h3><?php echo $r['description']; ?></h3>
       <p>Minimum Bid Amount:<?php echo $r['start_bid']; ?></span></p>
-      <form id="bid-form" action="biddatasend.php" method="post">
+      <h3><p><?php require_once "highestbid.php"  ?></span></p></h3>
+      <form  id="bid-form" action="biddatasend.php" method="post">
+        <input type="hidden" name="product_id" value= "<?php echo $r["product_id"]; ?>">
         <label for="bid-amount">Enter your bid:</label>
         <input type="number" id="bid-amount" name="bid-amount" min="<?php echo $r['start_bid']; ?>" required>
-        <button type="submit">Place Bid</button>
+        <button type="submit" >Place Bid</button>
       </form>
     </div>
     <?php } ?>
 
 </div>
 <!-- for bidding end -->
-
-<!-- for during bidding -->
-
-<!-- <div class="product_container">
-  <?php foreach($result as $r){ ?>
-
-  <div class="container_image">
-
-    <?php if($r['P_image'] != null) ?>
-        <img src="../<?php echo $r['P_image']; ?>" alt="Image">
-  </div>
   
-  <form id="biddingForm">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" rows="4" required></textarea>
-
-    <label for="minimumBid">Minimum Bid:</label>
-    <input type="number" id="minimumBid" name="minimumBid" required>
-
-    <label for="bidAmount">Enter your Bid:</label>
-    <input type="number" id="bidAmount" name="bidAmount" required>
-
-    <input type="submit" value="Place Bid">
-</form>
-    <?php } ?> -->
-
-<!-- for during bidding end -->
-
-
-
-
-
-
-
-
-
-  
-    
 </body>
 </html>
