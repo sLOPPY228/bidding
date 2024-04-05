@@ -9,6 +9,25 @@ $id = $_GET["product_id"];
 $query = "SELECT * FROM products where product_id=$id";
 $result = $conn->query($query);
 $r = $result;
+
+
+// // Prepare SQL query
+// $sql = "SELECT user_id FROM product WHERE product_id = $id";
+
+// // Execute query
+// $result = $conn->query($sql);
+
+// // Check if any rows were returned
+// if ($result->num_rows > 0) {
+//   // Fetch the data from the result set
+//   $row = $result->fetch_assoc();
+//   $user_id = $row["user_id"];
+//   echo "Username: " . $username;
+// } else {
+//   echo "No results found.";
+// }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -49,13 +68,30 @@ if ($_SESSION["usertype"]==0) {
       <h1>User name:<?php echo $r['username']; ?></h1>
       <h3><?php echo $r['description']; ?></h3>
       <p>Minimum Bid Amount:<?php echo $r['start_bid']; ?></span></p>
+      <p>BID ENDS IN:<?php echo $r['Bid_end']; ?></p>
       <h3><p><?php require_once "highestbid.php"  ?></span></p></h3>
-      <form  id="bid-form" action="biddatasend.php" method="post">
-        <input type="hidden" name="product_id" value= "<?php echo $r["product_id"]; ?>">
-        <label for="bid-amount">Enter your bid:</label>
-        <input type="number" id="bid-amount" name="bid-amount" min="<?php echo $r['start_bid']; ?>" required>
-        <button type="submit" >Place Bid</button>
-      </form>
+      
+       <?php
+       $currentdate=date("Y-m-d");
+      //  echo $currentdate;
+      //  echo $r['user_id'];
+       $currentuser=$r['user_id']; 
+      //  echo $currentuser;
+      //  echo "and";
+      //  echo $_SESSION["userid"];
+      if ($currentdate <= $r['Bid_end']) {
+        if ($currentuser !== $_SESSION["userid"]) {
+          require_once "bidmodule.php";
+         }else {
+          echo "<br>";
+          echo "<h1>You cannot bid on your own product!</h1>";
+         }
+      }else{
+        echo "<br>";
+          echo "<h1>Bidding time has ended!</h1>";
+      }
+       
+       ?>
     </div>
     <?php } ?>
 

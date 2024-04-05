@@ -44,7 +44,7 @@ if ($_SESSION["usertype"]==0) {
         <img src="../<?php echo $r['P_image']; ?>" alt="Image">
         </td>
       <h3><?php echo $r['product_name']; ?></h3>
-      <p><?php echo $r['description']; ?></p>
+      <p>BID END IN:<BR><?php echo $r['Bid_end']; ?></p>
       <p>Starting Bid : <?php echo $r['start_bid']; ?></p>
       
       <button><a href="6bidui.php?product_id=<?php echo $r["product_id"]; ?>">Bid item</a></button>
