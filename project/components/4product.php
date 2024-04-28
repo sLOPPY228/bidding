@@ -37,13 +37,15 @@ $r = $result;
    <!-- userphpend -->
    
     
-   <table>
-      <div class="content">
-        <label for="">Your products</label>
-        <button><a href="5create.php">New post</a></button>
-      </div>
-      <div class="content">
-          <tr>
+   <div class="content">
+    <h1>YOUR PRODUCTS</h1>
+     <button><a href="5create.php">New post</a></button>
+     
+   </div>
+   <div class="content">
+    <br>
+     <table>
+     <tr>
            
             <th>Product Name</th>
             <th>Category</th>
@@ -68,7 +70,7 @@ $r = $result;
         <img src="../<?php echo $r['P_image']; ?>" alt="Image">
         </td>
          <td>
-          <button class="editBtn" >Edit</button>
+          <button class="editBtn" >Edit</button><br>
          <button class="deleteBtn" onclick='return checkdelete()'><a href="filedeletelogic.php?product_id=<?php echo $r["product_id"]; ?>">Delete</a></button>
         </td>
          

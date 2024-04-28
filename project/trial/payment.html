@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dummy Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .payment-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .payment-button {
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .payment-button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Payment Method</h1>
+        <div class="payment-buttons">
+            <button class="payment-button" onclick="redirectToESewa()">Pay with eSewa</button>
+            <button class="payment-button" onclick="redirectToKhalti()">Pay with Khalti</button>
+        </div>
+    </div>
+
+    <!-- Dummy JavaScript functions (replace with actual payment gateway integration) -->
+    <script>
+        function redirectToESewa() {
+            // Dummy redirect URL for eSewa
+            window.location.href = 'https://esewa.com.np';
+        }
+
+        function redirectToKhalti() {
+            // Dummy redirect URL for Khalti
+            window.location.href = 'https://khalti.com';
+        }
+    </script>
+</body>
+</html>

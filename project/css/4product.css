@@ -1,95 +1,105 @@
-@import url('https://fonts.cdnfonts.com/css/zeyada');
-@import url('https://fonts.googleapis.com/css?family=Poppins');
+/* Reset default margin and padding */
 
-body{
-    margin:20px;
-    font-family: Arial;
-    
+  
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+a{
+  text-decoration: none;
+  color: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+
+tr:hover {
+  background-color: #eaeaea;
+}
+
+.imgCell img {
+  max-width: 200px;
+  height: auto;
+}
+
+.bid-status {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.bid-ended {
+  background-color: #ffcccc;
+  color: #e60000;
+}
+
+.bid-ongoing {
+  background-color: #ccffcc;
+  color: #009900;
+}
+
+.bid-result {
+  margin-top: 10px;
+}
+
+h5 {
+  margin: 5px 0;
+}
+
+.item_product {
+  display: flex;
+  align-items: center;
+}
+
+.item_product img {
+  margin-right: 10px;
 }
 button{
-  background-color: rgb(85, 135, 85);
-}
-
-
-/*carousel*/
-.content{
-    margin-top: 30px;
-    margin-left: 10px;
-    
-}
-
-
-
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.item-list::-webkit-scrollbar {
-  display: none;
-}
-
-.prev-btn {
-  background : none;
-  cursor: pointer;
-}
-
-.next-btn {
-  cursor: pointer;
-}
-
-.item {
-  scroll-snap-align: center;
-  min-width: 120px;
-  height: 120px;
-  background-color: deeppink;
-  border-radius:8px;
-}
-
-.item_product a{
-  font-family: 'poppins';
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  padding: 10px 0;
+  border-radius: 10px;
   outline: none;
-    color: black;
-    text-decoration: none;
+  border: none;
+  width: 95%;
+  background: #7FA6EE;
+  color: #fff;
+  cursor: pointer;
 }
-
-
-/* table */
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  td, th {
-    border: 1px solid #0f0f0f;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #ffffff;
-  }
-  
-  table .imgCell img{
-    display: flex;
-    /* column-span: 2/-2; */
-    /* aspect-ratio: 16/9; */
-    /* overflow: scroll; */
-    height: 200px;
-  }
-  
-  table button{
-    padding: 0.25rem 0.75rem;
-    color:rgb(246, 238, 238);
-  }
-  
-  .editBtn{
-    background-color: green;
-  }
-  
-  .deleteBtn{
-    background-color: red;
-  }
-   a{
-   color: white;
-   text-decoration: none;
-   padding: 3px;
-  }
+button:hover{
+  background: black;
+}

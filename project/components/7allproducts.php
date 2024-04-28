@@ -60,7 +60,7 @@ if ($_SESSION["usertype"]==0) {
         <img src="../<?php echo $r['P_image']; ?>" alt="Image">
         </td>
          <td>
-          <button class="editBtn" >Edit</button>
+          <button class="editBtn" >Edit</button><br>
          <button class="deleteBtn"  onclick='return checkdelete()'><a href="filedeletelogic.php?product_id=<?php echo $r["product_id"]; ?>">Delete</a></button>
         </td>
          
