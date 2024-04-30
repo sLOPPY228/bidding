@@ -1,8 +1,19 @@
 <?php
 include 'db_connect.php';
 // Check if the email already exists
-$query = "SELECT * FROM products";
+$id = $_GET['product_id'];
+// echo $id;
+// $query = "SELECT *
+// FROM products
+// WHERE product_id = $id
+// ";
 
+$query = "SELECT b.*,l.*
+FROM bids b 
+INNER JOIN login_data l
+ON b.user_id = l.user_id
+where b.product_id = $id
+";
 
 $result = $conn->query($query);
 ?>
@@ -30,39 +41,25 @@ if ($_SESSION["usertype"]==0) {
    <!-- navigation bar ends -->
     
    <div class="content">
-   <h1>ALL PRODUCTS</h1>
+   <h1>ALL BIDS ON THIS PRODUCTS</h1>
      
    </div>
    <table>
       <div class="content">
           <tr>
            
-            <th>Product Name</th>
-            <th>Category</th>
-            <th>Product Description</th>
-            <th>Start Date</th>
-            <th>Regular Price</th>
-            <th>End Date</th>
-            <th>Product Image</th>
-            <th>Action</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Bid Amount</th>
+            <th>Bid Time</th>
           </tr>
           <?php foreach($result as $r){ ?>
         <tr>
           
-         <td><?php echo $r['product_name']; ?></td>
-         <td><?php echo $r['category']; ?></td>
-         <td><?php echo $r['description']; ?></td>
-         <td><?php echo $r['start_bid']; ?></td>
-         <td><?php echo $r['regular_price']; ?></td>
-         <td><?php echo $r['Bid_end']; ?></td>
-         <td class="imgCell">
-        <?php if($r['P_image'] != null) ?>
-        <img src="../<?php echo $r['P_image']; ?>" alt="Image">
-        </td>
-         <td>
-          
-         <button class="deleteBtn"  onclick='return checkdelete()'><a href="filedeletelogic.php?product_id=<?php echo $r["product_id"]; ?>">Delete</a></button>
-        </td>
+         <td><?php echo $r['username']; ?></td>
+         <td><?php echo $r['email']; ?></td>
+         <td><?php echo $r['bid_amount']; ?></td>
+         <td><?php echo $r['bid_time']; ?></td>
          
   </tr>
   <?php } ?>

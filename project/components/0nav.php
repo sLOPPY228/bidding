@@ -15,7 +15,7 @@
             <?php
             
             if(isset($_SESSION['userid'])) {
-                echo '<li><a href="logout.php">Logout</a></li>';
+                echo '<li><a href="0logout.php">Logout</a></li>';
             } else {
         header("location: 2signin.php");      
             }

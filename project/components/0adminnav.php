@@ -7,13 +7,15 @@
     <div class="menu">
         <ul>
             <li><a href="3homepage.php">Home</a></li>
-            <li><a href="4product.php">Products</a></li>
-            <li><a href="7allproducts.php">All Products</a></li>
-            <li><a href="8yourbids.php">Your bids</a></li>
+            <!-- <li><a href="4product.php">Products</a></li> -->
+            <li><a href="7allproducts.php">Products Details</a></li>
+            <li><a href="10biddetails.php">Bid Details</a></li>
+            <!-- <li><a href="8yourbids.php">Your bids</a></li> -->
+
             <?php
             // session_start();
             if(isset($_SESSION['userid'])) {
-                echo '<li><a href="logout.php">Logout</a></li>';
+                echo '<li><a href="0logout.php">Logout</a></li>';
             } else {
         header("location: 2signin.php");      
         

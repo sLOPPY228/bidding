@@ -1,60 +1,83 @@
-@import url('https://fonts.cdnfonts.com/css/zeyada');
-@import url('https://fonts.googleapis.com/css?family=Poppins');
-
-
-
-form{
-    display: grid;
-    align-content: baseline;
-   
-    
-}
-.product-data{
-    padding: 5px;
-}
-
-
-
-.product {
-    margin: 20px auto;
-    width: 400px;
-    font-family: Arial, sans-serif;
-}
-
-.product-data {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="number"],
-select,
-button {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-select {
-    width: calc(100% + 2px); /* To account for the border width */
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f7f7f7;
+}
+form{
+    padding: 60px;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-data {
+    margin-bottom: 20px;
+}
+
+.product-data label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.product-data input[type="text"],
+.product-data input[type="number"],
+.product-data select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.product-data select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+}
+
+.product-data input[type="file"] {
+    display: block;
+    margin-top: 5px;
+}
+
+.product-data button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #45a049;
+.product-data button:hover {
+    background-color: #0056b3;
 }
-#description_box{
-    height: 100px;
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .product-data button {
+        padding: 8px 16px;
+    }
 }
-    

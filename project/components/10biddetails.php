@@ -1,7 +1,26 @@
 <?php
 include 'db_connect.php';
-?>
 
+// $query = "SELECT product_id, COUNT(*) AS count_occurrences
+// FROM bids
+// GROUP BY product_id
+// HAVING COUNT(*) >= 1;
+// ";
+
+
+$query = "SELECT p.*, b.count_occurrences
+FROM products p
+INNER JOIN (
+    SELECT product_id, COUNT(*) AS count_occurrences
+    FROM bids
+    GROUP BY product_id
+    HAVING COUNT(*) >= 1
+) b ON p.product_id = b.product_id;
+";
+
+
+$result = $conn->query($query);
+?>
 
 
 <!DOCTYPE html>
@@ -14,8 +33,8 @@ include 'db_connect.php';
   </head>
   <body oncontextmenu=" return disableRightClick();">
 
-<!-- navigation bar begin -->
-<?php 
+   <!-- navigation bar begin -->
+   <?php 
 if ($_SESSION["usertype"]==0) {
     require_once "../components/0nav.php";
 }else {
@@ -24,64 +43,46 @@ if ($_SESSION["usertype"]==0) {
 
 ?>
    <!-- navigation bar ends -->
-   <?php
-
-if(isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
-  $userid = $_SESSION['userid'];
-}
-
-$query = "SELECT * FROM products where user_id = $userid";
-$result = $conn->query($query);
-$r = $result;
- ?>
-   <!-- userphpend -->
-   
     
    <div class="content">
-    <h1>YOUR PRODUCTS</h1>
-     <button><a href="5create.php">New post</a></button>
+   <h1>BID DETAILS</h1>
      
    </div>
-   <div class="content">
-    <br>
-     <table>
-     <tr>
+   <table>
+      <div class="content">
+          <tr>
            
             <th>Product Name</th>
             <th>Category</th>
             <th>Product Description</th>
-            <th>Start Date</th>
-            <th>Regular Price</th>
-            <th>End Date</th>
             <th>Product Image</th>
-            <th>Action</th>
+            <th>Bid Status</th>
+            <th>Further Details</th>
           </tr>
           <?php foreach($result as $r){ ?>
         <tr>
+         <!-- <td><?php echo $r['product_id']; ?></td> -->
           
          <td><?php echo $r['product_name']; ?></td>
          <td><?php echo $r['category']; ?></td>
          <td><?php echo $r['description']; ?></td>
-         <td><?php echo $r['start_bid']; ?></td>
-         <td><?php echo $r['regular_price']; ?></td>
-         <td><?php echo $r['Bid_end']; ?></td>
          <td class="imgCell">
         <?php if($r['P_image'] != null) ?>
         <img src="../<?php echo $r['P_image']; ?>" alt="Image">
         </td>
-         <td>
-         <?php
+         <td> <?php
           $currentdate=date("Y-m-d");
 
-            if ($currentdate <= $r['Bid_end']) {
-              ?>
-              <!-- <button class="editBtn" ><a href="file_edit.php?product_id=<?php echo $r["product_id"]; ?>">Edit</a></button><br> -->
-             <?php
+            if ($currentdate >= $r['Bid_end']) {
+               echo"<h3>Bid ended</h3>";
+            }else {
+               echo"<h3>On going</h3>";
             }
-            ?>
+            ?></td>
+        
+         <td>
+          
          <button ><a href="11product_bids.php?product_id=<?php echo $r["product_id"]; ?>">View Details</a></button>
-
-         <button class="deleteBtn" onclick='return checkdelete()'><a href="filedeletelogic.php?product_id=<?php echo $r["product_id"]; ?>">Delete</a></button>
         </td>
          
   </tr>
@@ -90,9 +91,4 @@ $r = $result;
       </div>
     </table>
   </body>
-  <script>
-    function checkdelete() {
-      return confirm("Are you sure about that?");
-    }
-  </script>
 </html>

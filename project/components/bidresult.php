@@ -15,18 +15,20 @@ $sql = "SELECT login_data.username, MAX(bids.bid_amount) AS highest_bid
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<h2>Highest Bidder:</h2>";
+    // echo "<h3>Highest Bidder</h3>";
     echo "<ol>";
     while($row = $result->fetch_assoc()) {
-        echo "<li>" . $row["username"] . " - Rs." . $row["highest_bid"] . "</li>";
+        // echo  $row["username"] . " - Rs." . $row["highest_bid"] ;
         if ($_SESSION["username"] == $row["username"]) {
             ?>
-                Congratulations,you have won the bid<br>Proceed to payment <br>
-         <button ><a href="payment.php?product_id=<?php echo $r["product_id"]; ?>">Pay</a></button>
-            <?php
+                <br>Congratulations,you have won the bid<br>Proceed to payment <br>
+                
+         <button ><a href="9payment.php?bid_amount=<?php echo urlencode($r["bid_amount"]); ?>">Pay</a></button>
+            <?php  
+            
         } else {
             ?>
-            <h5>Sorry, you didn't win this bid.</h5>
+            <h3>Sorry, you didn't win this bid.</h3>
             <?php
         }
     }

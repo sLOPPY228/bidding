@@ -30,12 +30,14 @@ if(isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
   $userid = $_SESSION['userid'];
 }
 // $query = "SELECT b.bid_id, b.product_id, b.user_id, p.product_name,p.category,p.description,p.Bid_end,p.P_image
+
 $query = "SELECT b.*,p.*
 FROM bids b 
 INNER JOIN products p
 ON b.product_id = p.product_id
 where b.user_id = $userid;
 ";
+
 // $query = "SELECT * FROM bids where user_id = $userid";
 // $query = "SELECT p.*,b.* FROM products p,bids b where p.user_id = $userid AND b.user_id = $userid";
 // $query = "SELECT p.*,b.product_id,user_id,bid_amount,bid_id FROM products p,bids b where  b.user_id = $userid";
@@ -86,9 +88,9 @@ $r = $result;
           $currentdate=date("Y-m-d");
 
             if ($currentdate >= $r['Bid_end']) {
-               echo"<h1>Bid ended</h1>";
+               echo"<h3>Bid ended</h3>";
             }else {
-               echo"<h1>On going</h1>";
+               echo"<h3>On going</h3>";
             }
             ?>
         </td>
@@ -102,7 +104,7 @@ $r = $result;
          require "bidresult.php";
             }else {
               ?>
-              <h5>Results will be shown after bid has ended.</h5>
+              <h3>Results will be shown after bid has ended.</h3>
             <?php
             }
             ?>
@@ -114,9 +116,4 @@ $r = $result;
       </div>
     </table>
   </body>
-  <script>
-    function checkdelete() {
-      return confirm("Are you sure about that?");
-    }
-  </script>
 </html>

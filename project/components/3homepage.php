@@ -35,8 +35,7 @@ if ($_SESSION["usertype"]==0) {
 
 <!-- container product start -->
 
-
-<div class="container_product" ">
+<div class="container_product" >
 <?php foreach($result as $r){ ?>
     <div class="item_product">
     <td class="imgCell">
@@ -53,7 +52,7 @@ if ($_SESSION["usertype"]==0) {
     
     
     <!-- Add more item_products here -->
-  </div>
+  <!-- </div> -->
 
 <!-- container product end -->
 
