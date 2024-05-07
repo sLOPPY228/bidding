@@ -1,107 +1,45 @@
 <?php
 include 'db_connect.php';
-$id = $_GET['product_id'];
-$query = "SELECT *
-FROM products 
-where product_id = $id;
-";
+$id = $_SESSION["userid"] ;
+// $username = $_GET["username"];
+// $query = "SELECT *
+// FROM login_data
+// where user_id = $id;
+// ";
 
 
-$result = $conn->query($query);
+// $result = $conn->query($query);
 
 ?>
+<?php
+// Include your database connection file
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/5create.css">
-</head>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate and sanitize input fields
+    // $username = htmlspecialchars($_POST['username']);
+    $oldPassword = htmlspecialchars($_POST['old-password']);
+    $newPassword = htmlspecialchars($_POST['new-password']);
+    $confirmPassword = htmlspecialchars($_POST['confirm-password']);
 
-<body oncontextmenu=" return disableRightClick();">
-<!-- navigation bar begin -->
-<?php 
-if ($_SESSION["usertype"]==0) {
-    require_once "../components/0nav.php";
-}else {
-    require_once "../components/0adminnav.php";
+    // Check if old password matches the one in the database
+    $query = "SELECT * FROM login_data WHERE user_id = '$id' AND password = '$oldPassword'";
+    $result = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($result) == 1) {
+        // Check if new password and confirm password match
+        if ($newPassword === $confirmPassword) {
+            // Update the password in the database
+            $updateQuery = "UPDATE login_data SET password = '$newPassword' WHERE user_id = '$id'";
+            if (mysqli_query($conn, $updateQuery)) {
+                echo "Password updated successfully.";
+            } else {
+                echo "Error updating password: " . mysqli_error($conn);
+            }
+        } else {
+            echo "New password and confirm password do not match.";
+        }
+    } else {
+        echo "Username or old password is incorrect.";
+    }
 }
-
 ?>
-   <!-- navigation bar ends -->
-
-   <?php foreach($result as $r){ ?>
-
-   <form action="filesendlogic.php " method="post" class="product" enctype="multipart/form-data">
-        <div class="product-data">
-            <label>Product Name</label>
-            <input type="text" name="product-name" value="<?php echo $r['product_name']; ?>" required>
-        </div>
-
-        <div class="product-data">
-            <label>Category</label>
-            <select  name="category">
-                <option value="Painting">Painting</option>
-                <option value="Fine Art">Fine Art</option>
-                <option value="Pixel Art">Pixel Art</option>
-                <option value="Sculpture">Sculpture</option>
-            </select>
-        </div>
-
-        <div class="product-data">
-            <label for="Description" >Description</label>
-            <input type="text" value="<?php echo $r['description']; ?>" name="description" id="Description_box" style="height: 150px;">
-        </div>
-
-        <div class="product-data">
-            <label for="Starting bid">Starting bid</label>
-            <input type="number" value="bid1" name="bid1" required>
-        </div>
-        
-        <div class="product-data">
-            <label for="Regular Price">Regular Price</label>
-            <input type="number" value="price" name="price" required>
-        </div>
-
-        <div class="product-data">
-            <label for="Bidding End Date/Time">Bidding End Date/Time</label>
-            <!-- <input type="datetime-local" value="date"  name="end_date" id="date" min="<?php echo date('Y-m-d'); ?>" required > -->
-            <input type="date" id="date" required name="end_date" min="" />
-            
-
-
-        </div>
-
-        <div class="product-data">
-            <label for="Product Image">Product Image</label>
-            <input type="file"  name="image" accept=".jpg, .jpeg, .png" required><br>
-        </div>
-
-        <div class="product-data">
-            <button type="submit" name="Add" >Add Product</button>
-        </div>
-   </form>
-<!-- form end -->
-<?php } ?>
-
-
-<!-- no old date -->
-<script>
-    // Get today's date
-    var today = new Date();
-
-    // Set it to tomorrow
-    var tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-
-    // Format tomorrow's date as YYYY-MM-DD
-    var tomorrowFormatted = tomorrow.toISOString().split('T')[0];
-
-    // Set the min attribute of the input field to tomorrow's date
-    document.getElementById("date").setAttribute("min", tomorrowFormatted);
-</script>
-<!-- no old date -->
-</body>
-</html>

@@ -1,28 +1,9 @@
 <?php
 include 'db_connect.php';
 // Check if the email already exists
-$id = $_GET['product_id'];
-// echo $id;
-// $query = "SELECT *
-// FROM products
-// WHERE product_id = $id
-// ";
+$query = "SELECT * FROM login_data
+where usertype = 0";
 
-// $query = "SELECT b.*,l.*
-// FROM bids b 
-// INNER JOIN login_data l
-// ON b.user_id = l.user_id
-// where b.product_id = $id
-// ";
-
-$query = "SELECT b.*, l.*
-FROM bids b 
-INNER JOIN login_data l
-ON b.user_id = l.user_id
-WHERE b.product_id = $id
-ORDER BY b.bid_amount DESC; -- Assuming bid_amount is the column you want to sort by
-
-";
 
 $result = $conn->query($query);
 ?>
@@ -50,33 +31,34 @@ if ($_SESSION["usertype"]==0) {
    <!-- navigation bar ends -->
     
    <div class="content">
-   <h1>ALL BIDS ON THIS PRODUCTS</h1>
+   <h1>ALL PRODUCTS</h1>
      
    </div>
    <table>
       <div class="content">
           <tr>
-            <th>SN</th>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Bid Amount</th>
-            <th>Bid Time</th>
+           
+            <th>User_id</th>
+            <th>Username</th>
+            <th>E-mail</th>
+            <th>Password</th>
+            <th>Action</th>
           </tr>
-          <?php 
-          $sn = 1;
-          foreach($result as $r){ ?>
+          <?php foreach($result as $r){ ?>
         <tr>
-        <td><?php echo $sn; ?></td>
+          
+         <td><?php echo $r['user_id']; ?></td>
          <td><?php echo $r['username']; ?></td>
          <td><?php echo $r['email']; ?></td>
-         <td><?php echo $r['bid_amount']; ?></td>
-         <td><?php echo $r['bid_time']; ?></td>
+         <td><?php echo $r['password']; ?></td>
+
+         <td>
+          
+         <button class="deleteBtn"  onclick='return checkdelete()'><a href="adminuserprofiledelete.php?user_id=<?php echo $r["user_id"]; ?>">Delete User</a></button>
+        </td>
          
   </tr>
-  <?php 
-$sn++;
-}
- ?>
+  <?php } ?>
         
       </div>
     </table>

@@ -12,6 +12,11 @@
             <li><a href="4product.php">Products</a></li>
             <li><a href="8yourbids.php">Your bids</a></li>
 
+            <li><p><?= $_SESSION['username'];?></p>
+            <div class="hover-content">
+            <a href="13userprofile.php"> edit profile</a>
+         </div>
+        </li>
             <?php
             
             if(isset($_SESSION['userid'])) {
@@ -20,9 +25,6 @@
         header("location: 2signin.php");      
             }
             ?>
-            <!-- <li><a href="#"><img src="../pic/pfp.png"></a></li> -->
-            <li><p><?= $_SESSION['username'];?></p></li>
-            
         </ul>
     </div>
 </nav>

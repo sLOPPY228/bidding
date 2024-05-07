@@ -7,6 +7,7 @@
     <div class="menu">
         <ul>
             <li><a href="3homepage.php">Home</a></li>
+            <li><a href="12allusers.php">Users</a></li>
             <!-- <li><a href="4product.php">Products</a></li> -->
             <li><a href="7allproducts.php">Products Details</a></li>
             <li><a href="10biddetails.php">Bid Details</a></li>
