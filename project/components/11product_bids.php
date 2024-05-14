@@ -20,6 +20,7 @@ FROM bids b
 INNER JOIN login_data l
 ON b.user_id = l.user_id
 WHERE b.product_id = $id
+AND b.bid_status = 'NORMAL'
 ORDER BY b.bid_amount DESC; -- Assuming bid_amount is the column you want to sort by
 
 ";

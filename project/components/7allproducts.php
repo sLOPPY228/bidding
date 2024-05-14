@@ -1,7 +1,8 @@
 <?php
 include 'db_connect.php';
 // Check if the email already exists
-$query = "SELECT * FROM products";
+$query = "SELECT * FROM products
+WHERE product_status = 'ACTIVE'";
 
 
 $result = $conn->query($query);

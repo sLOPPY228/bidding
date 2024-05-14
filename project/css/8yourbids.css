@@ -75,11 +75,13 @@
   .item_product {
     display: flex;
     align-items: center;
+    width: 40px;
   }
   
   .item_product img {
-    margin-right: 10px;
+    /* margin-right: 10px; */
   }
+  
   button{
     font-size: 1.1rem;
     margin-top: 1rem;

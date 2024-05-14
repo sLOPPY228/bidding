@@ -14,7 +14,9 @@
 
             <li><p><?= $_SESSION['username'];?></p>
             <div class="hover-content">
-            <a href="13userprofile.php"> edit profile</a>
+            <a href="13userprofile.php"> Edit profile</a><br>
+            <a href="15docomplain.php"> Contact us</a>
+
          </div>
         </li>
             <?php

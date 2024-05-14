@@ -72,6 +72,7 @@ if ($_SESSION["usertype"]==0) {
       <h3><p><?php require_once "highestbid.php"  ?></span></p></h3>
       
        <?php
+       $usertype = $_SESSION["usertype"];
        $currentdate=date("Y-m-d");
       //  echo $currentdate;
       //  echo $r['user_id'];
@@ -79,6 +80,8 @@ if ($_SESSION["usertype"]==0) {
       //  echo $currentuser;
       //  echo "and";
       //  echo $_SESSION["userid"];
+      if ($usertype == 0) {
+        
       if ($currentdate <= $r['Bid_end']) {
         if ($currentuser !== $_SESSION["userid"]) {
           require_once "bidmodule.php";
@@ -93,7 +96,9 @@ if ($_SESSION["usertype"]==0) {
        
        ?>
     </div>
-    <?php } ?>
+    <?php }
+      }
+     ?>
 
 </div>
 <!-- for bidding end -->

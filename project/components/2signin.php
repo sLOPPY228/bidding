@@ -26,8 +26,8 @@ require_once "norightclick.php";
 
       <form action="2loginLogic.php" method="post">
         
-        <input type="text" name="username"  placeholder="Username"  >
-        <input type="password" name="password" placeholder="Password">
+        <input type="text" name="username"  placeholder="Username"  required>
+        <input type="password" name="password" placeholder="Password" required>
 
         <button type="submit" name="submit">Sign in</button>
 

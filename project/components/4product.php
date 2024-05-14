@@ -9,7 +9,7 @@ include 'db_connect.php';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Product</title>
     <link rel="stylesheet" href="../css/4product.css" />
   </head>
   <body oncontextmenu=" return disableRightClick();">
@@ -30,7 +30,7 @@ if(isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
   $userid = $_SESSION['userid'];
 }
 
-$query = "SELECT * FROM products where user_id = $userid";
+$query = "SELECT * FROM products where user_id = $userid AND product_status = 'ACTIVE'";
 $result = $conn->query($query);
 $r = $result;
  ?>
@@ -70,15 +70,7 @@ $r = $result;
         <img src="../<?php echo $r['P_image']; ?>" alt="Image">
         </td>
          <td>
-         <?php
-          $currentdate=date("Y-m-d");
-
-            if ($currentdate <= $r['Bid_end']) {
-              ?>
-              <!-- <button class="editBtn" ><a href="file_edit.php?product_id=<?php echo $r["product_id"]; ?>">Edit</a></button><br> -->
-             <?php
-            }
-            ?>
+          
          <button ><a href="11product_bids.php?product_id=<?php echo $r["product_id"]; ?>">View Details</a></button>
 
          <button class="deleteBtn" onclick='return checkdelete()'><a href="filedeletelogic.php?product_id=<?php echo $r["product_id"]; ?>">Delete</a></button>

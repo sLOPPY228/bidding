@@ -11,11 +11,11 @@ if (!isset($_GET["product_id"])) {
 $id = $_GET["product_id"];
 
 // Delete from products database
-$query_products = "DELETE FROM products WHERE product_id = '$id'";
+$query_products = "UPDATE products SET product_status = 'DELETED' WHERE user_id = '$id'";
 $result_products = mysqli_query($conn, $query_products);
 
 // Delete from bids database
-$query_bids = "DELETE FROM bids WHERE product_id = '$id'";
+$query_bids = $query_user = "UPDATE bids SET bid_status = 'DELETED' WHERE user_id = '$id'";
 $result_bids = mysqli_query($conn, $query_bids);
 
 // Check if deletion was successful for both databases

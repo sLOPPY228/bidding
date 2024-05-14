@@ -9,7 +9,7 @@ include 'db_connect.php';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Bids</title>
     <link rel="stylesheet" href="../css/8yourbids.css" />
   </head>
   <body oncontextmenu=" return disableRightClick();">
@@ -35,7 +35,8 @@ $query = "SELECT b.*,p.*
 FROM bids b 
 INNER JOIN products p
 ON b.product_id = p.product_id
-where b.user_id = $userid;
+where b.user_id = $userid
+AND p.product_status = 'ACTIVE';
 ";
 
 // $query = "SELECT * FROM bids where user_id = $userid";

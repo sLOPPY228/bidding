@@ -16,7 +16,7 @@ $result = $conn->query($query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Userprofile</title>
     <link rel="stylesheet" href="../css/5create.css">
 </head>
 
@@ -62,12 +62,20 @@ if ($_SESSION["usertype"]==0) {
         </div>
 
     </form>
+    <?php 
+if ($_SESSION["usertype"]==0) {
+    ?>
     <form >
         <label >Delete account</label><br><br>
         <div class="product-data">
             <button class="deleteBtn"  onclick='return checkdelete()'><a href="14ownuserprofiledelete.php?user_id=<?php echo $r["user_id"]; ?>">Delete User</a></button>
             </div>
     </form>
+    <?php   
+}
+
+?>
+    
     
 <!-- form end -->
 <?php } ?>

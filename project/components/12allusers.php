@@ -31,7 +31,7 @@ if ($_SESSION["usertype"]==0) {
    <!-- navigation bar ends -->
     
    <div class="content">
-   <h1>ALL PRODUCTS</h1>
+   <h1>ALL USERS</h1>
      
    </div>
    <table>

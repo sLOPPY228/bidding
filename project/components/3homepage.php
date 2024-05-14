@@ -2,10 +2,11 @@
 include 'db_connect.php';
 
 // Check if the email already exists
-$query = "SELECT * FROM products";
+$query = "SELECT * FROM products WHERE product_status = 'ACTIVE'";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
+$usertype =$_SESSION["usertype"];
 ?>
 
 <!DOCTYPE html>
@@ -45,8 +46,13 @@ if ($_SESSION["usertype"]==0) {
       <h3><?php echo $r['product_name']; ?></h3>
       <p>BID END IN:<BR><?php echo $r['Bid_end']; ?></p>
       <p>Starting Bid : <?php echo $r['start_bid']; ?></p>
+      <?php
+      if ($usertype == 0) { ?>
       
       <button><a href="6bidui.php?product_id=<?php echo $r["product_id"]; ?>">Bid item</a></button>
+      <?php
+      }
+      ?>
     </div>
     <?php } ?>
     

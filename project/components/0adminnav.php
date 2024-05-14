@@ -13,19 +13,22 @@
             <li><a href="10biddetails.php">Bid Details</a></li>
             <!-- <li><a href="8yourbids.php">Your bids</a></li> -->
 
+            <li><p><?= $_SESSION['username'];?></p>
+            <div class="hover-content">
+            <a href="13userprofile.php"> Edit profile</a> <br>
+            <a href="16seecomplain.php"> User Issues</a>
+
+         </div>
+        </li>
             <?php
-            // session_start();
+            
             if(isset($_SESSION['userid'])) {
                 echo '<li><a href="0logout.php">Logout</a></li>';
             } else {
         header("location: 2signin.php");      
-        
-
             }
             ?>
-            <!-- <li><a href="#"><img src="../pic/pfp.png"></a></li> -->
-            <li><p><?= $_SESSION['username'];?></p></li>
-            
+        </ul>
         </ul>
     </div>
 </nav>

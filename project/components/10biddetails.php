@@ -15,8 +15,10 @@ INNER JOIN (
     FROM bids
     GROUP BY product_id
     HAVING COUNT(*) >= 1
-) b ON p.product_id = b.product_id;
+) b ON p.product_id = b.product_id
+WHERE p.product_status = 'ACTIVE';
 ";
+
 
 
 $result = $conn->query($query);
