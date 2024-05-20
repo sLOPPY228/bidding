@@ -7,8 +7,8 @@ include 'db_connect.php';
 // } else {
 //     echo "No data received.";
 // }
-$data = $_GET["bid_amount"]
-
+$data = $_GET["bid_amount"];
+$product_id = $_GET['product_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +32,7 @@ if ($_SESSION["usertype"]==0) {
     <div class="container">
         <h1>Payment Details</h1>
         <form action="mail.php" method="POST">
+            <input type="hidden" name="product_id" value= "<?php echo $product_id;?>">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 

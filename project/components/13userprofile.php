@@ -34,7 +34,7 @@ if ($_SESSION["usertype"]==0) {
 
    <?php foreach($result as $r){ ?>
 
-   <form action="file_edit.php " method="post" class="product" enctype="multipart/form-data">
+   <form action="update_password.php " method="post" class="product" enctype="multipart/form-data">
         <div class="product-data">
             <label>Username : <?php echo $r['username'];?></label>
             <!-- <input type="hidden" name="username" value=<?php  echo $r['username']; ?>> -->
@@ -79,6 +79,19 @@ if ($_SESSION["usertype"]==0) {
     
 <!-- form end -->
 <?php } ?>
+
+<?php
+// Check if a message is passed in the URL
+if(isset($_GET['message'])) {
+    // Get the message from the URL parameters
+    $message = $_GET['message'];
+    
+    // Output the message
+    echo "<script>alert('$message');</script>";
+}
+
+// Other code for the user profile page goes here
+?>
 
 
 </body>

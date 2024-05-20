@@ -1,16 +1,6 @@
-<?php session_start(); ?>
+<?php 
 
-<?php
-$servername = "localhost";  
-$username = "root";
-$password = "";
-$dbname = "phpgallery";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

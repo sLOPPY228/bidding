@@ -113,7 +113,18 @@ $r = $result;
          
   </tr>
   <?php } ?>
-        
+  <?php
+// Check if a message is passed in the URL
+if(isset($_GET['message'])) {
+    // Get the message from the URL parameters
+    $message = $_GET['message'];
+    
+    // Output the message
+    echo "<script>alert('$message');</script>";
+}
+
+// Other code for the user profile page goes here
+?>
       </div>
     </table>
   </body>
