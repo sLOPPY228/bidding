@@ -23,7 +23,7 @@ if ($result->num_rows > 0) {
             ?>
                 <br>Congratulations,you have won the bid<br>Proceed to payment <br>
                 
-         <button ><a href="9payment.php?bid_amount=<?php echo urlencode($r["bid_amount"]);?>&product_id= <?php echo $r['product_id']?>">Pay</a></button>
+         <button ><a href="9.1payment.php?bid_amount=<?php echo urlencode($r["bid_amount"]);?>&product_id= <?php echo $r['product_id']?>">Pay</a></button>
             <?php  
             
         } else {
