@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     
 
-    $sql = "INSERT INTO complaints (user_id,username,Email,Category,complaint) 
+    $sql = "INSERT INTO complaints (user_id,username,Email,Category,Complaint) 
     VALUES ('$user_id','$username','$email','$category','$complaint')";
 
     if ($conn->query($sql) === TRUE) {

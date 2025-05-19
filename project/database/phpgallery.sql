@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2024 at 02:05 PM
+-- Generation Time: May 13, 2025 at 01:37 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,20 +32,44 @@ CREATE TABLE `bids` (
   `product_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `bid_amount` int(11) NOT NULL,
-  `bid_time` date NOT NULL
+  `bid_time` date NOT NULL,
+  `bid_status` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bids`
 --
 
-INSERT INTO `bids` (`bid_id`, `product_id`, `user_id`, `bid_amount`, `bid_time`) VALUES
-(1, 0, 0, 49, '0000-00-00'),
-(2, 0, 3, 50, '0000-00-00'),
-(3, 0, 3, 90, '2024-04-04'),
-(4, 0, 3, 90, '2024-04-04'),
-(5, 0, 3, 90, '2024-04-04'),
-(6, 27, 3, 999999, '2024-04-04');
+INSERT INTO `bids` (`bid_id`, `product_id`, `user_id`, `bid_amount`, `bid_time`, `bid_status`) VALUES
+(7, 38, 3, 600, '2025-05-13', 'DELETED'),
+(8, 39, 3, 500, '2025-05-13', 'NORMAL'),
+(9, 40, 3, 20, '2025-05-13', 'DELETED'),
+(10, 38, 4, 550, '2025-05-13', 'DELETED'),
+(11, 39, 4, 6000, '2025-05-13', 'NORMAL'),
+(12, 40, 4, 20, '2025-05-13', 'DELETED'),
+(14, 42, 3, 9000, '2025-05-13', 'NORMAL');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complaints`
+--
+
+CREATE TABLE `complaints` (
+  `user_id` int(11) NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `Email` varchar(150) NOT NULL,
+  `Category` varchar(150) NOT NULL,
+  `Complaint` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `complaints`
+--
+
+INSERT INTO `complaints` (`user_id`, `username`, `Email`, `Category`, `Complaint`) VALUES
+(2, 'ASHOK', 'gebapej287@bamsrad.com', 'Painting', 0),
+(3, 'Smriti', 'gebapej287@bamsrad.com', 'Painting', 0);
 
 -- --------------------------------------------------------
 
@@ -74,7 +98,7 @@ INSERT INTO `login_data` (`user_id`, `username`, `email`, `password`, `usertype`
 (6, 'dhiran', 'dhiran@gmail.com', 'asdfasdf', 0),
 (7, 'miti1', 'mitiman@gmail.com', '11111111', 0),
 (8, 'kelvin', 'kelvin@gmail.com', 'asdfasdf', 0),
-(9, 'satish', 'satish@gmail.com', 'satishsatish', 0);
+(9, 'satish', 'satish@gmail.com', 'satishsatish', 2);
 
 -- --------------------------------------------------------
 
@@ -101,15 +125,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `username`, `product_name`, `category`, `description`, `start_bid`, `regular_price`, `Bid_end`, `P_image`, `user_id`, `product_status`) VALUES
-(27, 'admin', 'damn', 'Painting', 'description', 33, 44, '2024-04-28 20:58:00', 'pic/IMG_5102.JPG', 1, ''),
-(28, 'admin', 'patan', 'Painting', 'description', 45, 55, '2024-04-27 20:59:00', 'pic/IMG_5084.JPG', 1, ''),
-(29, 'admin', 'patan', 'Fine Art', 'description', 60, 60, '2024-04-28 21:00:00', 'pic/IMG_4980.JPG', 1, ''),
-(30, 'admin', 'basantapur', 'Painting', 'description', 33, 44, '2024-04-19 21:01:00', 'pic/IMG_5099.JPG', 1, ''),
-(31, 'admin', 'ronash', 'Painting', 'description', 33, 22, '2024-04-03 22:17:00', 'pic/IMG_5066.JPG', 1, ''),
-(32, 'admin', 'ronash', 'Painting', 'description', 55, 66, '2024-04-12 00:00:00', 'pic/IMG_5144.JPG', 1, ''),
-(33, 'admin', 'damn', 'Painting', 'description', 44, 444, '2024-04-19 00:00:00', 'pic/IMG_4993.JPG', 1, ''),
-(34, 'admin', 'ohm', 'Painting', 'description', 33, 44, '2024-04-27 00:00:00', 'pic/IMG_4990.JPG', 1, ''),
-(36, 'Smriti', 'ronash', 'Painting', 'description', 44, 55, '2024-04-27 00:00:00', 'pic/IMG_4991.JPG', 3, 'ACTIVE');
+(43, 'ASHOK', 'testing ', 'Painting', 'testing', 55, 66, '2025-05-17 00:00:00', 'pic/IMG_7510.JPG', 2, 'ACTIVE'),
+(44, 'ASHOK', 'testing 2', 'Painting', 'testing 2', 55, 66, '2025-05-17 00:00:00', 'pic/IMG_7461.JPG', 2, 'ACTIVE');
 
 --
 -- Indexes for dumped tables
@@ -141,7 +158,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `bids`
 --
 ALTER TABLE `bids`
-  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `login_data`
@@ -153,7 +170,7 @@ ALTER TABLE `login_data`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

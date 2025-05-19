@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION["userid"];
     $bid_amount = $_POST["bid-amount"];
     $bid_time = date("Y-m-d");
+    $bid_status = "NORMAL";
 
     // Check if the user has already placed a bid for the given product
     $check_sql = "SELECT * FROM bids WHERE product_id = '$product_id' AND user_id = '$user_id'";
@@ -26,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "You have already placed a bid for this product.";
     } else {
         // Insert the bid into the database
-        $sql = "INSERT INTO bids (user_id, bid_amount, bid_time, product_id) VALUES ('$user_id', '$bid_amount', '$bid_time', '$product_id')";
+        $sql = "INSERT INTO bids (user_id, bid_amount, bid_time, product_id, bid_status) VALUES ('$user_id', '$bid_amount', '$bid_time', '$product_id', '$bid_status')";
         
         if ($conn->query($sql) === TRUE) {
             // Redirect to a success page or perform any other desired action

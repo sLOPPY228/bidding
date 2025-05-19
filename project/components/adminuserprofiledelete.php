@@ -7,7 +7,7 @@ if (!isset($_GET["user_id"])) {
     die();
 }
 
-// Get the product_id from the URL
+// Get the USER_id from the URL
 $id = $_GET["user_id"];
 
 // Delete from products database
