@@ -60,8 +60,25 @@ if ($_SESSION["usertype"]==0) {
 
   <div class="container_image">
 
-    <?php if($r['P_image'] != null) ?>
-        <img src="../<?php echo $r['P_image']; ?>" alt="Image">
+    <?php 
+    if($r['P_image'] != null) {
+        // Construct the source path of the original image
+        $sourcePath = "../" . $r['P_image'];
+        
+        // Define the path for the watermark image
+        $watermarkPath = "../image/watermark.png";
+        
+        // Apply watermark on the image and get the output path
+        $watermarkedImage = applyWatermark($sourcePath, $watermarkPath);
+
+        // Display the watermarked image
+        if ($watermarkedImage) {
+            echo '<img src="' . $watermarkedImage . '" alt="Image">';
+        } else {
+            echo '<img src="../' . $r['P_image'] . '" alt="Image">';
+        }
+    }
+    ?>
   </div>
   
       <div class="container_description" style="border: 2 2 2 2;">
@@ -83,7 +100,7 @@ if ($_SESSION["usertype"]==0) {
       if ($usertype == 0) {
         
       if ($currentdate <= $r['Bid_end']) {
-        if ($currentuser !== $_SESSION["userid"]) {
+        if ($currentuser != $_SESSION["userid"]) {
           ?>
           <form  id="bid-form" action="biddatasend.php" method="post">
         <input type="hidden" name="product_id" value= "<?php echo $r["product_id"]; ?>">
@@ -112,3 +129,97 @@ if ($_SESSION["usertype"]==0) {
   
 </body>
 </html>
+
+<?php
+// Function to apply watermark to the image with alpha blending
+function applyWatermark($imagePath, $watermarkPath) {
+    // Check if the image and watermark exist
+    if (!file_exists($imagePath) || !file_exists($watermarkPath)) {
+        return false;
+    }
+
+    // Get the image type
+    $imageType = exif_imagetype($imagePath);
+    switch ($imageType) {
+        case IMAGETYPE_JPEG:
+            $image = imagecreatefromjpeg($imagePath);
+            break;
+        case IMAGETYPE_PNG:
+            $image = imagecreatefrompng($imagePath);
+            break;
+        case IMAGETYPE_GIF:
+            $image = imagecreatefromgif($imagePath);
+            break;
+        default:
+            return false;
+    }
+
+    // Create a new true color image with same dimensions
+    $width = imagesx($image);
+    $height = imagesy($image);
+    $newImage = imagecreatetruecolor($width, $height);
+
+    // Set alpha blending and saving for the new image
+    imagealphablending($newImage, false);
+    imagesavealpha($newImage, true);
+
+    // Fill new image with transparent background
+    $transparent = imagecolorallocatealpha($newImage, 0, 0, 0, 127);
+    imagefilledrectangle($newImage, 0, 0, $width, $height, $transparent);
+
+    // Copy original image to new image
+    imagecopy($newImage, $image, 0, 0, 0, 0, $width, $height);
+
+    // Load the watermark image (PNG with transparency support)
+    $watermark = imagecreatefrompng($watermarkPath);
+    
+    // Enable alpha blending on the watermark
+    imagealphablending($watermark, true);
+    
+    // Get the size of the watermark and container
+    $watermarkWidth = imagesx($watermark);
+    $watermarkHeight = imagesy($watermark);
+    $containerWidth = $width;
+    $containerHeight = $height;
+    
+    // Calculate new watermark size (half of container)
+    $newWatermarkWidth = round($containerWidth / 2);
+    $newWatermarkHeight = round(($watermarkHeight * $newWatermarkWidth) / $watermarkWidth); // maintain aspect ratio
+    
+    // Create a temporary image for the resized watermark
+    $tempWatermark = imagecreatetruecolor($newWatermarkWidth, $newWatermarkHeight);
+    imagealphablending($tempWatermark, false);
+    imagesavealpha($tempWatermark, true);
+    
+    // Resize watermark
+    imagecopyresampled($tempWatermark, $watermark, 0, 0, 0, 0, $newWatermarkWidth, $newWatermarkHeight, $watermarkWidth, $watermarkHeight);
+    
+    // Calculate the position (middle-right)
+    $xPosition = $width - $newWatermarkWidth - 20; // 20px padding from right
+    $yPosition = ($height - $newWatermarkHeight) / 2; // vertically centered
+
+    // Apply the watermark with alpha blending
+    imagealphablending($newImage, true);
+    imagecopymerge($newImage, $tempWatermark, $xPosition, $yPosition, 0, 0, $newWatermarkWidth, $newWatermarkHeight, 50);
+
+    // Clean up the temporary watermark
+    imagedestroy($tempWatermark);
+
+    // Save the watermarked image to a temporary file
+    $outputPath = '../temp/' . uniqid() . '.png';
+    
+    // Set alpha blending off and save alpha on for output
+    imagealphablending($newImage, false);
+    imagesavealpha($newImage, true);
+    
+    // Save as PNG to preserve transparency
+    imagepng($newImage, $outputPath);
+    
+    // Clean up
+    imagedestroy($image);
+    imagedestroy($watermark);
+    imagedestroy($newImage);
+    
+    return $outputPath;
+}
+?>

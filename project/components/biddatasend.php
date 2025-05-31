@@ -19,6 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $bid_time = date("Y-m-d");
     $bid_status = "NORMAL";
 
+    // First check if the user is the owner of the product
+    $owner_check_sql = "SELECT user_id FROM products WHERE product_id = '$product_id'";
+    $owner_result = $conn->query($owner_check_sql);
+    
+    if ($owner_result && $owner_result->num_rows > 0) {
+        $product_owner = $owner_result->fetch_assoc();
+        if ($product_owner['user_id'] == $user_id) {
+            echo "Error: You cannot bid on your own product!";
+            exit();
+        }
+    }
+
     // Check if the user has already placed a bid for the given product
     $check_sql = "SELECT * FROM bids WHERE product_id = '$product_id' AND user_id = '$user_id'";
     $check_result = $conn->query($check_sql);

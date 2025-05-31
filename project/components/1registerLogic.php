@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usertype = 0;
 
 
-    if (!preg_match("/^[a-zA-Z]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
+    if (!preg_match("/^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
         die("Invalid email format.");
     }
     
@@ -48,23 +48,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         die("email already exists. Please choose a different email.");
     }
-    // hashing end
 
-    // $password = password_hash($password, PASSWORD_DEFAULT);
-    // $query = "insert into users(user_id,name,email,password) values('','$name','$email','$password')";
-    // $result = mysqli_query($conn, $query);
-
-
-    // hashingstart
+    // Hash the password before storing
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     
-    $sql = "INSERT INTO login_data (username,email, password,usertype) VALUES ('$username', '$email','$password','$usertype')";
+    $sql = $conn->prepare("INSERT INTO login_data (username, email, password, usertype) VALUES (?, ?, ?, ?)");
+    $sql->bind_param("sssi", $username, $email, $hashed_password, $usertype);
 
-
-    if ($conn->query($sql) === TRUE) {
+    if ($sql->execute()) {
         header("location: 2signin.php");
         exit();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $conn->error;
     }
 }
 $conn->close();

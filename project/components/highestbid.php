@@ -18,7 +18,7 @@ if ($result->num_rows > 0) {
     echo "<h2>Top 3 Bidders:</h2>";
     echo "<ol>";
     while($row = $result->fetch_assoc()) {
-        echo "<li>" . $row["username"] . " - Rs." . $row["highest_bid"] . "</li>";
+        echo "<li>" . $row["username"] . "</li>";
     }
     echo "</ol>";
 } else {

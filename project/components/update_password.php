@@ -1,46 +1,61 @@
 <?php
 include 'db_connect.php';
-$id = $_SESSION["userid"] ;
-// $username = $_GET["username"];
-// $query = "SELECT *
-// FROM login_data
-// where user_id = $id;
-// ";
+session_start();
 
+if (!isset($_SESSION["userid"])) {
+    header("Location: 2signin.php");
+    exit();
+}
 
-// $result = $conn->query($query);
-
-?>
-<?php
-// Include your database connection file
+$id = $_SESSION["userid"];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate and sanitize input fields
-    // $username = htmlspecialchars($_POST['username']);
-    $oldPassword = htmlspecialchars($_POST['old-password']);
-    $newPassword = htmlspecialchars($_POST['new-password']);
-    $confirmPassword = htmlspecialchars($_POST['confirm-password']);
+    $oldPassword = $_POST['old-password'];
+    $newPassword = $_POST['new-password'];
+    $confirmPassword = $_POST['confirm-password'];
 
-    // Check if old password matches the one in the database
-    $query = "SELECT * FROM login_data WHERE user_id = '$id' AND password = '$oldPassword'";
-    $result = mysqli_query($conn, $query);
+    // Validate password length
+    if (strlen($newPassword) < 8) {
+        header("Location: 13userprofile.php?message=New password must be at least 8 characters long");
+        exit();
+    }
 
-    if (mysqli_num_rows($result) == 1) {
-        // Check if new password and confirm password match
-        if ($newPassword === $confirmPassword) {
-            // Update the password in the database
-            $updateQuery = "UPDATE login_data SET password = '$newPassword' WHERE user_id = '$id'";
-            if (mysqli_query($conn, $updateQuery)) {
-                // echo "Password updated successfully.";
+    // Check if new passwords match
+    if ($newPassword !== $confirmPassword) {
+        header("Location: 13userprofile.php?message=New password and confirm password do not match");
+        exit();
+    }
+
+    // Get the current password hash from database
+    $stmt = $conn->prepare("SELECT password FROM login_data WHERE user_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($row = $result->fetch_assoc()) {
+        // Verify the old password
+        if (password_verify($oldPassword, $row['password'])) {
+            // Hash the new password
+            $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+            
+            // Update the password
+            $updateStmt = $conn->prepare("UPDATE login_data SET password = ? WHERE user_id = ?");
+            $updateStmt->bind_param("si", $newPasswordHash, $id);
+            
+            if ($updateStmt->execute()) {
                 header("Location: 13userprofile.php?message=Password updated successfully");
             } else {
                 header("Location: 13userprofile.php?message=Error updating password");
             }
+            $updateStmt->close();
         } else {
-            header("Location: 13userprofile.php?message=New password and confirm password do not match.");
+            header("Location: 13userprofile.php?message=Current password is incorrect");
         }
     } else {
-        header("Location: 13userprofile.php?message=Password is incorrect.");
+        header("Location: 13userprofile.php?message=User not found");
     }
+    $stmt->close();
 }
+
+$conn->close();
 ?>

@@ -1,13 +1,10 @@
 <?php
 include 'db_connect.php';
-$id = $_SESSION["userid"] ;
-$query = "SELECT *
-FROM login_data
-where user_id = $id;
-";
-
-
-$result = $conn->query($query);
+$id = $_SESSION["userid"];
+$stmt = $conn->prepare("SELECT * FROM login_data WHERE user_id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 ?>
 
@@ -16,11 +13,11 @@ $result = $conn->query($query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Userprofile</title>
-    <link rel="stylesheet" href="../css/5create.css">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="../css/userprofile.css">
 </head>
 
-<body oncontextmenu=" return disableRightClick();">
+<body oncontextmenu="return disableRightClick();">
 <!-- navigation bar begin -->
 <?php 
 if ($_SESSION["usertype"]==0) {
@@ -28,76 +25,62 @@ if ($_SESSION["usertype"]==0) {
 }else {
     require_once "../components/0adminnav.php";
 }
-
 ?>
-   <!-- navigation bar ends -->
-
-   <?php foreach($result as $r){ ?>
-
-   <form action="update_password.php " method="post" class="product" enctype="multipart/form-data">
-        <div class="product-data">
-            <label>Username : <?php echo $r['username'];?></label>
-            <!-- <input type="hidden" name="username" value=<?php  echo $r['username']; ?>> -->
-            <!-- <input type="text" name="username" value="<?php echo $r['username']; ?>" required> -->
-        </div>
-
-        <div class="product-data">
-            <label>Password</label>
-            <input type="text" name="old-password" required>
-        </div>
-
-        <div class="product-data">
-            <label>New Password</label>
-            <input type="text" name="new-password" required>
-        </div>
-
-        <div class="product-data">
-            <label>Confirm Password</label>
-            <input type="text" name="confirm-password" required>
-        </div>
-
-
-        <div class="product-data">
-            <button type="submit" name="Add" >Update Acccount</button>
-        </div>
-
-    </form>
-    <?php 
-if ($_SESSION["usertype"]==0) {
-    ?>
-    <form >
-        <label >Delete account</label><br><br>
-        <div class="product-data">
-            <button class="deleteBtn"  onclick='return checkdelete()'><a href="14ownuserprofiledelete.php?user_id=<?php echo $r["user_id"]; ?>">Delete User</a></button>
-            </div>
-    </form>
-    <?php   
-}
-
-?>
-    
-    
-<!-- form end -->
-<?php } ?>
+<!-- navigation bar ends -->
 
 <?php
-// Check if a message is passed in the URL
 if(isset($_GET['message'])) {
-    // Get the message from the URL parameters
-    $message = $_GET['message'];
-    
-    // Output the message
-    echo "<script>alert('$message');</script>";
+    $message = htmlspecialchars($_GET['message']);
+    $messageClass = (strpos(strtolower($message), 'success') !== false) ? 'alert-success' : 'alert-error';
+    echo "<div class='alert $messageClass'>$message</div>";
 }
-
-// Other code for the user profile page goes here
 ?>
 
+<?php if($row = $result->fetch_assoc()){ ?>
+    <form action="update_password.php" method="post" class="product">
+        <div class="product-data">
+            <label>Username: <span class="username"><?php echo htmlspecialchars($row['username']);?></span></label>
+        </div>
+
+        <div class="product-data">
+            <label for="old-password">Current Password</label>
+            <input type="password" id="old-password" name="old-password" required 
+                   pattern=".{8,}" title="Password must be at least 8 characters long">
+        </div>
+
+        <div class="product-data">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" name="new-password" required 
+                   pattern=".{8,}" title="Password must be at least 8 characters long">
+        </div>
+
+        <div class="product-data">
+            <label for="confirm-password">Confirm New Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" required 
+                   pattern=".{8,}" title="Password must be at least 8 characters long">
+        </div>
+
+        <div class="product-data">
+            <button type="submit" name="update">Update Password</button>
+        </div>
+    </form>
+
+    <?php if ($_SESSION["usertype"]==0) { ?>
+        <div class="delete-section">
+            <label>Delete Account</label>
+            <p>Warning: This action cannot be undone.</p>
+            <button type="button" class="deleteBtn" 
+                    onclick="if(checkdelete()) window.location.href='14ownuserprofiledelete.php?user_id=<?php echo htmlspecialchars($row["user_id"]); ?>'">
+                Delete Account
+            </button>
+        </div>
+    <?php } ?>
+<?php } ?>
 
 </body>
 <script>
     function checkdelete() {
-      return confirm("Are you sure about that?");
+        return confirm("Are you sure you want to delete your account? This action cannot be undone.");
     }
-  </script>
+</script>
 </html>

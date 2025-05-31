@@ -1,0 +1,141 @@
+/* User Profile Styles */
+:root {
+    --primary-color: #3498db;
+    --danger-color: #e74c3c;
+    --success-color: #2ecc71;
+    --background-color: #f5f6fa;
+    --text-color: #2c3e50;
+    --border-color: #dcdde1;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.product {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+}
+
+.product-data {
+    margin-bottom: 20px;
+}
+
+.product-data label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.product-data input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.product-data input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.product-data button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.product-data button:hover {
+    background-color: #2980b9;
+}
+
+/* Delete Account Section */
+.delete-section {
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.delete-section label {
+    color: var(--danger-color);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.deleteBtn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.deleteBtn:hover {
+    background-color: #c0392b;
+}
+
+/* Success/Error Messages */
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.alert-error {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .product {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    .product-data button,
+    .deleteBtn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .product-data input {
+        padding: 10px;
+        font-size: 14px;
+    }
+} 
