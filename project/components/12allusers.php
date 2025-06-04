@@ -35,7 +35,7 @@ $result = $conn->query($query);
                 <th>User ID</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Password</th>
+                <!-- <th>Password</th> -->
                 <th>Action</th>
             </tr>
             <?php foreach($result as $r) { ?>
@@ -43,7 +43,7 @@ $result = $conn->query($query);
                 <td><?php echo $r['user_id']; ?></td>
                 <td><?php echo $r['username']; ?></td>
                 <td><?php echo $r['email']; ?></td>
-                <td><?php echo $r['password']; ?></td>
+                <!-- <td><?php echo $r['password']; ?></td> -->
                 <td>
                     <button class="deleteBtn" onclick='return checkdelete(<?php echo $r["user_id"]; ?>)'>Delete User</button>
                 </td>

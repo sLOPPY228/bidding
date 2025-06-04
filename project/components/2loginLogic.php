@@ -9,40 +9,48 @@ $dbname = "phpgallery";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    echo json_encode(["status" => "error", "message" => "Connection failed: " . $conn->connect_error]);
+    exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    // Use prepared statement to prevent SQL injection
-    $sql = $conn->prepare("SELECT * FROM login_data WHERE username = ?");
-    $sql->bind_param("s", $username);
-    $sql->execute();
-    $result = $sql->get_result();
+    // Validate input
+    if (empty($username) || empty($password)) {
+        echo json_encode(["status" => "error", "message" => "Username and password are required"]);
+        exit();
+    }
 
-    if ($result && $result->num_rows > 0) {
+    // Prepare SQL query with prepared statements for security
+    $stmt = $conn->prepare("SELECT * FROM login_data WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        
-        // Verify the password hash
-        if (password_verify($password, $row['password'])) {
-            if ($row['usertype'] == 2) {
-                echo "Your account has been deleted or disabled";
-            } else {
-                $_SESSION["userid"] = $row["user_id"];
-                $_SESSION["username"] = $row["username"];
-                $_SESSION["usertype"] = $row["usertype"];
-                header("Location:3homepage.php");
-                exit();
-            }
+        if (password_verify($password, $row["password"])) {
+            // Set session variables
+            $_SESSION["userid"] = $row["user_id"];
+            $_SESSION["username"] = $row["username"];
+            $_SESSION["usertype"] = $row["usertype"];
+            
+            echo json_encode([
+                "status" => "success", 
+                "message" => "Login successful!", 
+                "redirect" => "3homepage.php",
+                "usertype" => $row["usertype"]
+            ]);
         } else {
-            echo "Invalid username or password";
+            echo json_encode(["status" => "error", "message" => "Invalid password"]);
         }
     } else {
-        // Use the same message for both cases to not reveal which part was wrong
-        echo "Invalid username or password";
+        echo json_encode(["status" => "error", "message" => "Username not found"]);
     }
+    
+    $stmt->close();
 }
 
 $conn->close();

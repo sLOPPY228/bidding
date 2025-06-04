@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2025 at 01:37 PM
+-- Generation Time: Jun 02, 2025 at 11:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,13 +41,17 @@ CREATE TABLE `bids` (
 --
 
 INSERT INTO `bids` (`bid_id`, `product_id`, `user_id`, `bid_amount`, `bid_time`, `bid_status`) VALUES
-(7, 38, 3, 600, '2025-05-13', 'DELETED'),
-(8, 39, 3, 500, '2025-05-13', 'NORMAL'),
-(9, 40, 3, 20, '2025-05-13', 'DELETED'),
-(10, 38, 4, 550, '2025-05-13', 'DELETED'),
-(11, 39, 4, 6000, '2025-05-13', 'NORMAL'),
-(12, 40, 4, 20, '2025-05-13', 'DELETED'),
-(14, 42, 3, 9000, '2025-05-13', 'NORMAL');
+(17, 47, 17, 60, '2025-05-31', 'NORMAL'),
+(18, 47, 16, 545, '2025-05-31', 'NORMAL'),
+(19, 47, 15, 554, '2025-05-31', 'NORMAL'),
+(20, 49, 17, 5000000, '2025-05-31', 'DELETED'),
+(22, 50, 16, 60, '2025-06-02', 'NORMAL'),
+(23, 51, 17, 55, '2025-06-02', 'NORMAL'),
+(24, 52, 17, 100, '2025-06-02', 'NORMAL'),
+(25, 51, 16, 350, '2025-06-02', 'NORMAL'),
+(26, 52, 16, 100, '2025-06-02', 'NORMAL'),
+(28, 52, 19, 100, '2025-06-02', 'NORMAL'),
+(29, 51, 19, 55, '2025-06-02', 'NORMAL');
 
 -- --------------------------------------------------------
 
@@ -90,15 +94,11 @@ CREATE TABLE `login_data` (
 --
 
 INSERT INTO `login_data` (`user_id`, `username`, `email`, `password`, `usertype`) VALUES
-(1, 'admin', 'admin@GMAIL.COM', 'admin12345', 1),
-(2, 'ASHOK', 'ashokranjitkar228@gmail.com', '9841794227', 0),
-(3, 'Smriti', 'admin@123.com', 'smriti123', 0),
-(4, 'ronash', 'ronash@gmail.com', 'ronash12345', 0),
-(5, 'RIYAZ', '_RIYAZ@GMAI.COM', 'ASDFASDF', 0),
-(6, 'dhiran', 'dhiran@gmail.com', 'asdfasdf', 0),
-(7, 'miti1', 'mitiman@gmail.com', '11111111', 0),
-(8, 'kelvin', 'kelvin@gmail.com', 'asdfasdf', 0),
-(9, 'satish', 'satish@gmail.com', 'satishsatish', 2);
+(11, 'Admin', 'Admin@gmail.com', '$2y$10$psqWH.UAvGO6HKBdMW1Y8OCXxwaFyaF5ZRGa9o7wkigRhki2FpnIa', 1),
+(16, 'Ashok', 'ashokranjitkar228@gmail.com', '$2y$10$p/y5j/Xa2n0rwBwGegXVkO1MZC.IBFUoarCAgsjMhWJD9iMuwXoqG', 0),
+(17, 'Kelvin', 'kelvin456@gmail.com', '$2y$10$9R/SYVoQmy4g9koGdCeHh./06EpOjaqx08Wq7Hg/gdmcDTILwI1mq', 0),
+(18, 'Dummy', 'dummy@gmail.com', '$2y$10$1HTZrZqxry2hAvVtwS0PH.RdNBfwe6M.cmsa.B5jheQSK5n1aWMm2', 0),
+(19, 'Smriti', 'Smriti@gmail.com', '$2y$10$BjBHYREm7SJEIeP4IdWljOnjtZ80EGITuXZ9lY.iIpk87//wFy.Ki', 0);
 
 -- --------------------------------------------------------
 
@@ -125,8 +125,13 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `username`, `product_name`, `category`, `description`, `start_bid`, `regular_price`, `Bid_end`, `P_image`, `user_id`, `product_status`) VALUES
-(43, 'ASHOK', 'testing ', 'Painting', 'testing', 55, 66, '2025-05-17 00:00:00', 'pic/IMG_7510.JPG', 2, 'ACTIVE'),
-(44, 'ASHOK', 'testing 2', 'Painting', 'testing 2', 55, 66, '2025-05-17 00:00:00', 'pic/IMG_7461.JPG', 2, 'ACTIVE');
+(48, 'ronash', 'kelvin dai ko photo', 'Painting', 'description', 23123, 123, '2025-06-24 00:00:00', 'pic/RemitPe thankyou dfs and seamless.jpg', 15, 'DELETED'),
+(49, 'Ashok', 'ashok', 'Painting', 'description', 1233310, 112, '2025-06-26 00:00:00', 'pic/shared image.jpeg', 16, 'DELETED'),
+(50, 'Kelvin', 'lion', 'Painting', 'lion', 55, 65, '2025-06-28 00:00:00', 'pic/ChatGPT Image May 28, 2025, 04_10_38 PM.png', 17, 'DELETED'),
+(51, 'Dummy', 'Test (Bid Winner Ashok)', 'Painting', 'Bid Winner Ashok', 55, 55, '2025-02-05 00:00:00', 'pic/lion.jpg', 18, 'ACTIVE'),
+(52, 'Dummy', 'Test (Same Amount)', 'Painting', 'Test Same Amount ', 55, 55, '2025-03-04 00:00:00', 'pic/mountain.jpg', 18, 'ACTIVE'),
+(53, 'Dummy', 'Dummy 1', 'Painting', 'dummy 1', 50, 50, '2032-12-17 00:00:00', 'pic/panda.jpg', 18, 'ACTIVE'),
+(54, 'Dummy', 'Dummy 2', 'Painting', 'dummy 2', 50, 50, '2032-12-17 00:00:00', 'pic/raindeer.jpg', 18, 'ACTIVE');
 
 --
 -- Indexes for dumped tables
@@ -158,19 +163,19 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `bids`
 --
 ALTER TABLE `bids`
-  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `login_data`
 --
 ALTER TABLE `login_data`
-  MODIFY `user_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

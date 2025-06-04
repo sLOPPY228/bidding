@@ -12,7 +12,7 @@ include 'db_connect.php';
     <title>Product</title>
     <link rel="stylesheet" href="../css/4product.css" />
   </head>
-  <body oncontextmenu=" return disableRightClick();">
+  <body oncontextmenu="return disableRightClick();">
 
 <!-- navigation bar begin -->
 <?php 
@@ -39,7 +39,7 @@ $r = $result;
     
    <div class="content">
     <h1>YOUR PRODUCTS</h1>
-     <button><a href="5create.php">New post</a></button>
+     <button id="newPostBtn" class="action-button">New post</button>
      
    </div>
    <div class="content">
@@ -71,9 +71,9 @@ $r = $result;
         </td>
          <td>
           
-         <button ><a href="11product_bids.php?product_id=<?php echo $r["product_id"]; ?>">View Details</a></button>
+         <button class="view-details-btn action-button" data-product-id="<?php echo $r["product_id"]; ?>">View Details</button>
 
-         <button class="deleteBtn" onclick='return checkdelete()'><a href="filedeletelogic.php?product_id=<?php echo $r["product_id"]; ?>">Delete</a></button>
+         <button class="delete-btn action-button" data-product-id="<?php echo $r["product_id"]; ?>">Delete</button>
         </td>
          
   </tr>
@@ -83,8 +83,46 @@ $r = $result;
     </table>
   </body>
   <script>
-    function checkdelete() {
-      return confirm("Are you sure about that?");
+    document.addEventListener('DOMContentLoaded', function() {
+        // New Post Button
+        document.getElementById('newPostBtn').addEventListener('click', function() {
+            window.location.href = '5create.php';
+        });
+
+        // View Details Buttons
+        document.querySelectorAll('.view-details-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                window.location.href = `11product_bids.php?product_id=${productId}`;
+            });
+        });
+
+        // Delete Buttons
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                if (confirm('Are you sure you want to delete this product?')) {
+                    window.location.href = `filedeletelogic.php?product_id=${productId}`;
+                }
+            });
+        });
+    });
+
+    function disableRightClick() {
+        return false;
     }
   </script>
+
+<style>
+.action-button {
+    padding: 8px 16px;
+    margin: 4px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+
+</style>
 </html>

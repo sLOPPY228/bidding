@@ -1,28 +1,21 @@
 <?php
 include 'db_connect.php';
 
-// Check if product_id is set in the URL parameters
-if (!isset($_GET["product_id"])) {
-    echo "No product ID found.";
-    die();
+if (!isset($_POST["product_id"])) {
+    echo json_encode(["status" => "error", "message" => "No product ID provided"]);
+    exit();
 }
 
-// Get the product_id from the URL
-$id = $_GET["product_id"];
+$product_id = $_POST["product_id"];
 
-// Delete from products database
-$query_products = "UPDATE products SET product_status = 'DELETED' WHERE product_id = '$id'";
-$result_products = mysqli_query($conn, $query_products);
+// Update product status to 'DELETED' instead of actually deleting
+$sql = "UPDATE products SET product_status = 'DELETED' WHERE product_id = '$product_id'";
 
-// Delete from bids database
-$query_bids = "UPDATE bids SET bid_status = 'DELETED' WHERE product_id = '$id'";
-$result_bids = mysqli_query($conn, $query_bids);
-
-// Check if deletion was successful for both databases
-if ($result_products && $result_bids) {
-    echo "Data deleted successfully from both databases.";
-    // header("Location: 3homepage.php");
+if ($conn->query($sql) === TRUE) {
+    echo json_encode(["status" => "success", "message" => "Product deleted successfully!"]);
 } else {
-    echo "Error deleting data.";
+    echo json_encode(["status" => "error", "message" => "Error deleting product: " . $conn->error]);
 }
+
+$conn->close();
 ?>

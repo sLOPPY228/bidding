@@ -37,10 +37,28 @@ $r = $result;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bidding Page</title>
   <link rel="stylesheet" href="../css/6bidui.css">
-  
- 
+  <style>
+    .feedback-message {
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
 </head>
-<body oncontextmenu=" return disableRightClick();">
+<body oncontextmenu="return disableRightClick();">
 
 <!-- navigation bar begin -->
 <?php 
@@ -88,6 +106,9 @@ if ($_SESSION["usertype"]==0) {
       <p>BID ENDS IN:<?php echo $r['Bid_end']; ?></p>
       <h3><p><?php require_once "highestbid.php"  ?></span></p></h3>
       
+       <!-- Feedback message container -->
+       <div id="feedbackMessage" class="feedback-message"></div>
+       
        <?php
        $usertype = $_SESSION["usertype"];
        $currentdate=date("Y-m-d");
@@ -102,12 +123,12 @@ if ($_SESSION["usertype"]==0) {
       if ($currentdate <= $r['Bid_end']) {
         if ($currentuser != $_SESSION["userid"]) {
           ?>
-          <form  id="bid-form" action="biddatasend.php" method="post">
-        <input type="hidden" name="product_id" value= "<?php echo $r["product_id"]; ?>">
-        <label for="bid-amount">Enter your bid:</label>
-        <input type="number" id="bid-amount" name="bid-amount" min="<?php echo $r['start_bid']; ?>" required>
-        <button type="submit" >Place Bid</button>
-      </form>
+          <form id="bid-form" onsubmit="submitBid(event)">
+            <input type="hidden" name="product_id" value="<?php echo $r["product_id"]; ?>">
+            <label for="bid-amount">Enter your bid:</label>
+            <input type="number" id="bid-amount" name="bid-amount" min="<?php echo $r['start_bid']; ?>" required>
+            <button type="submit">Place Bid</button>
+          </form>
           <?php
          }else {
           echo "<br>";
@@ -127,6 +148,45 @@ if ($_SESSION["usertype"]==0) {
 </div>
 <!-- for bidding end -->
   
+<script>
+function submitBid(event) {
+  event.preventDefault();
+  
+  const form = event.target;
+  const formData = new FormData(form);
+  const feedbackDiv = document.getElementById('feedbackMessage');
+  
+  fetch('biddatasend.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    feedbackDiv.textContent = data.message;
+    feedbackDiv.className = 'feedback-message ' + (data.status === 'success' ? 'success' : 'error');
+    feedbackDiv.style.display = 'block';
+    
+    if (data.status === 'success') {
+      // Clear the form
+      form.reset();
+      // Optionally reload the highest bid display after a successful bid
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
+    }
+  })
+  .catch(error => {
+    feedbackDiv.textContent = 'An error occurred while processing your bid.';
+    feedbackDiv.className = 'feedback-message error';
+    feedbackDiv.style.display = 'block';
+  });
+}
+
+function disableRightClick() {
+  return false;
+}
+</script>
+
 </body>
 </html>
 
@@ -200,7 +260,7 @@ function applyWatermark($imagePath, $watermarkPath) {
 
     // Apply the watermark with alpha blending
     imagealphablending($newImage, true);
-    imagecopymerge($newImage, $tempWatermark, $xPosition, $yPosition, 0, 0, $newWatermarkWidth, $newWatermarkHeight, 50);
+    imagecopymerge($newImage, $tempWatermark, $xPosition, $yPosition, 0, 0, $newWatermarkWidth, $newWatermarkHeight, 30);
 
     // Clean up the temporary watermark
     imagedestroy($tempWatermark);

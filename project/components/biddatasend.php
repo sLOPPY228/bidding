@@ -9,7 +9,7 @@ $dbname = "phpgallery";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(["status" => "error", "message" => "Connection failed: " . $conn->connect_error]));
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($owner_result && $owner_result->num_rows > 0) {
         $product_owner = $owner_result->fetch_assoc();
         if ($product_owner['user_id'] == $user_id) {
-            echo "Error: You cannot bid on your own product!";
+            echo json_encode(["status" => "error", "message" => "Error: You cannot bid on your own product!"]);
             exit();
         }
     }
@@ -36,16 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $check_result = $conn->query($check_sql);
     
     if ($check_result && $check_result->num_rows > 0) {
-        echo "You have already placed a bid for this product.";
+        echo json_encode(["status" => "error", "message" => "You have already placed a bid for this product."]);
     } else {
         // Insert the bid into the database
         $sql = "INSERT INTO bids (user_id, bid_amount, bid_time, product_id, bid_status) VALUES ('$user_id', '$bid_amount', '$bid_time', '$product_id', '$bid_status')";
         
         if ($conn->query($sql) === TRUE) {
-            // Redirect to a success page or perform any other desired action
-            echo "Bid placed successfully.";
+            echo json_encode(["status" => "success", "message" => "Bid placed successfully!"]);
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo json_encode(["status" => "error", "message" => "Error: " . $sql . "<br>" . $conn->error]);
         }
     }
 }

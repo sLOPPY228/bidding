@@ -11,6 +11,8 @@ $result = $stmt->get_result();
 // Get the user type from session
 $usertype = $_SESSION["usertype"];
 
+// Get current date
+$currentDate = date('Y-m-d');
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +21,33 @@ $usertype = $_SESSION["usertype"];
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../css/3homepage.css" />
   <title>Galler-E</title>
+  <style>
+    .bid-status {
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: 500;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .bid-ended {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .bid-active {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .date-display {
+      font-size: 0.9em;
+      color: #666;
+      margin: 5px 0;
+    }
+  </style>
   <script>
     function disableRightClick() {
       return false;
@@ -29,7 +58,6 @@ $usertype = $_SESSION["usertype"];
     }
   </script>
 </head>
-
 
 <body oncontextmenu="return disableRightClick();">
 
@@ -44,24 +72,20 @@ if ($_SESSION["usertype"] == 0) {
 
 <!-- Product Container -->
 <div class="container_product">
-  <?php foreach ($result as $r): ?>
+  <?php foreach ($result as $r): 
+    // Compare only dates
+
+    $isBidEnded = strtotime($currentDate) > strtotime(date('Y-m-d', strtotime($r['Bid_end'])));
+  ?>
     <div class="item_product">
       <?php
         // Check if the product has an image
         if (!empty($r['P_image'])):
-          // Construct the source path of the original image
           $sourcePath = "../" . $r['P_image'];
-          
-          // Define the path for the watermark image
           $watermarkPath = "../image/watermark.png";
-          
-          // Apply watermark on the image and get the output path
           $watermarkedImage = applyWatermark($sourcePath, $watermarkPath);
-
-          // Display the watermarked image
           if ($watermarkedImage):
       ?>
-      
             <img src="<?php echo $watermarkedImage; ?>" alt="Product Image">
       <?php
           else:
@@ -73,14 +97,32 @@ if ($_SESSION["usertype"] == 0) {
       ?>
 
       <h3><?php echo htmlspecialchars($r['product_name']); ?></h3>
-      <p>BID END IN:<br><?php echo htmlspecialchars($r['Bid_end']); ?></p>
+      
+      <!-- Bid Status -->
+      <div class="bid-status <?php echo $isBidEnded ? 'bid-ended' : 'bid-active'; ?>">
+        <?php if ($isBidEnded): ?>
+          Bidding Ended
+        <?php else: ?>
+          Bidding Active
+        <?php endif; ?>
+      </div>
+      
+      <!-- Date Display -->
+      <div class="date-display">
+        Bid End Date: <?php echo date('Y-m-d', strtotime($r['Bid_end'])); ?>
+      </div>
+      
       <p>Starting Bid: <?php echo htmlspecialchars($r['start_bid']); ?></p>
 
-      <?php if ($usertype == 0): ?>
-        <button onclick="goToBid('<?php echo $r['product_id']; ?>')">Bid Item</button>
+      <?php if ($usertype == 0 && !$isBidEnded): ?>
+        <button onclick="goToBid('<?php echo $r['product_id']; ?>')">
+          Bid Item
+        </button>
       <?php endif; ?>
     </div>
   <?php endforeach; ?>
+
+  
 </div>
 
 </body>
@@ -156,7 +198,7 @@ function applyWatermark($imagePath, $watermarkPath) {
 
     // Apply the watermark with alpha blending
     imagealphablending($newImage, true);
-    imagecopymerge($newImage, $tempWatermark, $xPosition, $yPosition, 0, 0, $newWatermarkWidth, $newWatermarkHeight, 50);
+    imagecopymerge($newImage, $tempWatermark, $xPosition, $yPosition, 0, 0, $newWatermarkWidth, $newWatermarkHeight, 30);
 
     // Clean up the temporary watermark
     imagedestroy($tempWatermark);
