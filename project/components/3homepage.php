@@ -11,8 +11,9 @@ $result = $stmt->get_result();
 // Get the user type from session
 $usertype = $_SESSION["usertype"];
 
-// Get current date
-$currentDate = date('Y-m-d');
+// Get current date and time
+date_default_timezone_set('Asia/Kathmandu');
+$currentDateTime = date('Y-m-d H:i:s');
 ?>
 
 <!DOCTYPE html>
@@ -73,9 +74,8 @@ if ($_SESSION["usertype"] == 0) {
 <!-- Product Container -->
 <div class="container_product">
   <?php foreach ($result as $r): 
-    // Compare only dates
-
-    $isBidEnded = strtotime($currentDate) > strtotime(date('Y-m-d', strtotime($r['Bid_end'])));
+    // Compare full datetime
+    $isBidEnded = strtotime($currentDateTime) > strtotime($r['Bid_end']);
   ?>
     <div class="item_product">
       <?php
@@ -109,7 +109,21 @@ if ($_SESSION["usertype"] == 0) {
       
       <!-- Date Display -->
       <div class="date-display">
-        Bid End Date: <?php echo date('Y-m-d', strtotime($r['Bid_end'])); ?>
+        Bid End Date: <?php echo date('Y-m-d', strtotime($r['Bid_end'])); ?><br>
+        Bid End Time: <?php echo date('H:i', strtotime($r['Bid_end'])); ?>
+        <?php if (!$isBidEnded): ?>
+          <br>
+          <?php
+            $now = new DateTime($currentDateTime);
+            $end = new DateTime($r['Bid_end']);
+            $interval = $now->diff($end);
+            echo 'Time Left: ';
+            if ($interval->d > 0) echo $interval->d . 'd ';
+            if ($interval->h > 0) echo $interval->h . 'h ';
+            if ($interval->i > 0) echo $interval->i . 'm ';
+            if ($interval->s > 0 && $interval->d == 0 && $interval->h == 0 && $interval->i == 0) echo $interval->s . 's';
+          ?>
+        <?php endif; ?>
       </div>
       
       <p>Starting Bid: <?php echo htmlspecialchars($r['start_bid']); ?></p>
@@ -168,10 +182,10 @@ function applyWatermark($imagePath, $watermarkPath) {
     // Copy original image to new image
     imagecopy($newImage, $image, 0, 0, 0, 0, $width, $height);
 
-    // Load the watermark image (PNG with transparency support)
+    // watermark image
     $watermark = imagecreatefrompng($watermarkPath);
     
-    // Enable alpha blending on the watermark
+    // Enable alpha blending 
     imagealphablending($watermark, true);
     
     // Get the size of the watermark and container
@@ -189,18 +203,17 @@ function applyWatermark($imagePath, $watermarkPath) {
     imagealphablending($tempWatermark, false);
     imagesavealpha($tempWatermark, true);
     
-    // Resize watermark
+    // watermark resize
     imagecopyresampled($tempWatermark, $watermark, 0, 0, 0, 0, $newWatermarkWidth, $newWatermarkHeight, $watermarkWidth, $watermarkHeight);
     
-    // Calculate the position (center)
+    // postion
     $xPosition = ($width - $newWatermarkWidth) / 2; // horizontally centered
     $yPosition = ($height - $newWatermarkHeight) / 2; // vertically centered
 
-    // Apply the watermark with alpha blending
+    // Apply watermark
     imagealphablending($newImage, true);
     imagecopymerge($newImage, $tempWatermark, $xPosition, $yPosition, 0, 0, $newWatermarkWidth, $newWatermarkHeight, 30);
 
-    // Clean up the temporary watermark
     imagedestroy($tempWatermark);
 
     // Save the watermarked image to a temporary file
@@ -213,7 +226,6 @@ function applyWatermark($imagePath, $watermarkPath) {
     // Save as PNG to preserve transparency
     imagepng($newImage, $outputPath);
     
-    // Clean up
     imagedestroy($image);
     imagedestroy($watermark);
     imagedestroy($newImage);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2025 at 11:21 AM
+-- Generation Time: Jul 25, 2025 at 12:48 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,7 +51,9 @@ INSERT INTO `bids` (`bid_id`, `product_id`, `user_id`, `bid_amount`, `bid_time`,
 (25, 51, 16, 350, '2025-06-02', 'NORMAL'),
 (26, 52, 16, 100, '2025-06-02', 'NORMAL'),
 (28, 52, 19, 100, '2025-06-02', 'NORMAL'),
-(29, 51, 19, 55, '2025-06-02', 'NORMAL');
+(29, 51, 19, 55, '2025-06-02', 'NORMAL'),
+(30, 53, 16, 55, '2025-06-04', 'NORMAL'),
+(31, 56, 16, 60, '2025-06-10', 'NORMAL');
 
 -- --------------------------------------------------------
 
@@ -73,7 +75,8 @@ CREATE TABLE `complaints` (
 
 INSERT INTO `complaints` (`user_id`, `username`, `Email`, `Category`, `Complaint`) VALUES
 (2, 'ASHOK', 'gebapej287@bamsrad.com', 'Painting', 0),
-(3, 'Smriti', 'gebapej287@bamsrad.com', 'Painting', 0);
+(3, 'Smriti', 'gebapej287@bamsrad.com', 'Painting', 0),
+(16, 'Ashok', 'alskdfj@gmail.com', 'Painting', 0);
 
 -- --------------------------------------------------------
 
@@ -113,7 +116,6 @@ CREATE TABLE `products` (
   `category` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `start_bid` float NOT NULL,
-  `regular_price` float NOT NULL,
   `Bid_end` datetime NOT NULL,
   `P_image` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -124,14 +126,17 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `username`, `product_name`, `category`, `description`, `start_bid`, `regular_price`, `Bid_end`, `P_image`, `user_id`, `product_status`) VALUES
-(48, 'ronash', 'kelvin dai ko photo', 'Painting', 'description', 23123, 123, '2025-06-24 00:00:00', 'pic/RemitPe thankyou dfs and seamless.jpg', 15, 'DELETED'),
-(49, 'Ashok', 'ashok', 'Painting', 'description', 1233310, 112, '2025-06-26 00:00:00', 'pic/shared image.jpeg', 16, 'DELETED'),
-(50, 'Kelvin', 'lion', 'Painting', 'lion', 55, 65, '2025-06-28 00:00:00', 'pic/ChatGPT Image May 28, 2025, 04_10_38 PM.png', 17, 'DELETED'),
-(51, 'Dummy', 'Test (Bid Winner Ashok)', 'Painting', 'Bid Winner Ashok', 55, 55, '2025-02-05 00:00:00', 'pic/lion.jpg', 18, 'ACTIVE'),
-(52, 'Dummy', 'Test (Same Amount)', 'Painting', 'Test Same Amount ', 55, 55, '2025-03-04 00:00:00', 'pic/mountain.jpg', 18, 'ACTIVE'),
-(53, 'Dummy', 'Dummy 1', 'Painting', 'dummy 1', 50, 50, '2032-12-17 00:00:00', 'pic/panda.jpg', 18, 'ACTIVE'),
-(54, 'Dummy', 'Dummy 2', 'Painting', 'dummy 2', 50, 50, '2032-12-17 00:00:00', 'pic/raindeer.jpg', 18, 'ACTIVE');
+INSERT INTO `products` (`product_id`, `username`, `product_name`, `category`, `description`, `start_bid`, `Bid_end`, `P_image`, `user_id`, `product_status`) VALUES
+(48, 'ronash', 'kelvin dai ko photo', 'Painting', 'description', 23123, '2025-06-24 00:00:00', 'pic/RemitPe thankyou dfs and seamless.jpg', 15, 'DELETED'),
+(49, 'Ashok', 'ashok', 'Painting', 'description', 1233310, '2025-06-26 00:00:00', 'pic/shared image.jpeg', 16, 'DELETED'),
+(50, 'Kelvin', 'lion', 'Painting', 'lion', 55, '2025-06-28 00:00:00', 'pic/ChatGPT Image May 28, 2025, 04_10_38 PM.png', 17, 'DELETED'),
+(51, 'Dummy', 'Test (Bid Winner Ashok)', 'Painting', 'Bid Winner Ashok', 55, '2025-02-05 00:00:00', 'pic/lion.jpg', 18, 'ACTIVE'),
+(52, 'Dummy', 'Test (Same Amount)', 'Painting', 'Test Same Amount ', 55, '2025-03-04 00:00:00', 'pic/mountain.jpg', 18, 'ACTIVE'),
+(53, 'Dummy', 'Dummy 1', 'Painting', 'dummy 1', 50, '2032-12-17 00:00:00', 'pic/panda.jpg', 18, 'ACTIVE'),
+(54, 'Dummy', 'Dummy 2', 'Painting', 'dummy 2', 50, '2032-12-17 00:00:00', 'pic/raindeer.jpg', 18, 'ACTIVE'),
+(55, 'Dummy', 'lava mountain', 'Sculpture', 'digital picture of lava mountain', 100, '2025-08-14 00:00:00', 'pic/lava mountain.jpg', 18, 'ACTIVE'),
+(56, 'Dummy', 'test 5', 'Painting', 'description', 55, '2025-06-11 00:00:00', 'pic/terrain.jpg', 18, 'ACTIVE'),
+(57, 'Dummy', 'date and time', 'Painting', 'description', 55, '2025-07-25 17:16:00', 'pic/25th july remitpe.jpg', 18, 'ACTIVE');
 
 --
 -- Indexes for dumped tables
@@ -163,7 +168,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `bids`
 --
 ALTER TABLE `bids`
-  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `login_data`
@@ -175,7 +180,7 @@ ALTER TABLE `login_data`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

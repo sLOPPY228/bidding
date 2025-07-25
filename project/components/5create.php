@@ -51,17 +51,8 @@ if ($_SESSION["usertype"]==0) {
         </div>
         
         <div class="product-data">
-            <label for="Regular Price">Regular Price</label>
-            <input type="number" value="price" name="price" required>
-        </div>
-
-        <div class="product-data">
             <label for="Bidding End Date/Time">Bidding End Date/Time</label>
-            <!-- <input type="datetime-local" value="date"  name="end_date" id="date" min="<?php echo date('Y-m-d'); ?>" required > -->
-            <input type="date" id="date" required name="end_date" min="" />
-            
-
-
+            <input type="datetime-local" id="date" required name="end_date" min="" />
         </div>
 
         <div class="product-data">
@@ -79,17 +70,14 @@ if ($_SESSION["usertype"]==0) {
 
 <!-- no old date -->
 <script>
-    // Get today's date
-    var today = new Date();
-
-    // Set it to tomorrow
-    var tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-
-    // Format tomorrow's date as YYYY-MM-DD
-    var tomorrowFormatted = tomorrow.toISOString().split('T')[0];
-
-    // Set the min attribute of the input field to tomorrow's date
+    // Get today's date and time
+    var now = new Date();
+    // Set it to tomorrow, same time
+    var tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    // Format as YYYY-MM-DDTHH:MM for datetime-local
+    var pad = n => n < 10 ? '0' + n : n;
+    var tomorrowFormatted = tomorrow.getFullYear() + '-' + pad(tomorrow.getMonth() + 1) + '-' + pad(tomorrow.getDate()) + 'T' + pad(tomorrow.getHours()) + ':' + pad(tomorrow.getMinutes());
     document.getElementById("date").setAttribute("min", tomorrowFormatted);
 </script>
 <!-- no old date -->

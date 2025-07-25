@@ -51,7 +51,6 @@ $r = $result;
             <th>Category</th>
             <th>Product Description</th>
             <th>Start Date</th>
-            <th>Regular Price</th>
             <th>End Date</th>
             <th>Product Image</th>
             <th>Action</th>
@@ -63,7 +62,6 @@ $r = $result;
          <td><?php echo $r['category']; ?></td>
          <td><?php echo $r['description']; ?></td>
          <td><?php echo $r['start_bid']; ?></td>
-         <td><?php echo $r['regular_price']; ?></td>
          <td><?php echo $r['Bid_end']; ?></td>
          <td class="imgCell">
         <?php if($r['P_image'] != null) ?>
