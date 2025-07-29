@@ -1,7 +1,7 @@
 <?php
 // Include the database connection
 include 'db_connect.php';
-
+require_once 'watermark_util.php';
 // Query to fetch active products
 $query = "SELECT * FROM products WHERE product_status = 'ACTIVE'";
 $stmt = $conn->prepare($query);
@@ -141,96 +141,4 @@ if ($_SESSION["usertype"] == 0) {
 
 </body>
 </html>
-
-<?php
-// Function to apply watermark to the image with alpha blending
-function applyWatermark($imagePath, $watermarkPath) {
-    // Check if the image and watermark exist
-    if (!file_exists($imagePath) || !file_exists($watermarkPath)) {
-        return false;
-    }
-
-    // Get the image type
-    $imageType = exif_imagetype($imagePath);
-    switch ($imageType) {
-        case IMAGETYPE_JPEG:
-            $image = imagecreatefromjpeg($imagePath);
-            break;
-        case IMAGETYPE_PNG:
-            $image = imagecreatefrompng($imagePath);
-            break;
-        case IMAGETYPE_GIF:
-            $image = imagecreatefromgif($imagePath);
-            break;
-        default:
-            return false;
-    }
-
-    // Create a new true color image with same dimensions
-    $width = imagesx($image);
-    $height = imagesy($image);
-    $newImage = imagecreatetruecolor($width, $height);
-
-    // Set alpha blending and saving for the new image
-    imagealphablending($newImage, false);
-    imagesavealpha($newImage, true);
-
-    // Fill new image with transparent background
-    $transparent = imagecolorallocatealpha($newImage, 0, 0, 0, 127);
-    imagefilledrectangle($newImage, 0, 0, $width, $height, $transparent);
-
-    // Copy original image to new image
-    imagecopy($newImage, $image, 0, 0, 0, 0, $width, $height);
-
-    // watermark image
-    $watermark = imagecreatefrompng($watermarkPath);
-    
-    // Enable alpha blending 
-    imagealphablending($watermark, true);
-    
-    // Get the size of the watermark and container
-    $watermarkWidth = imagesx($watermark);
-    $watermarkHeight = imagesy($watermark);
-    $containerWidth = $width;
-    $containerHeight = $height;
-    
-    // Calculate new watermark size (half of container)
-    $newWatermarkWidth = round($containerWidth / 2);
-    $newWatermarkHeight = round(($watermarkHeight * $newWatermarkWidth) / $watermarkWidth); // maintain aspect ratio
-    
-    // Create a temporary image for the resized watermark
-    $tempWatermark = imagecreatetruecolor($newWatermarkWidth, $newWatermarkHeight);
-    imagealphablending($tempWatermark, false);
-    imagesavealpha($tempWatermark, true);
-    
-    // watermark resize
-    imagecopyresampled($tempWatermark, $watermark, 0, 0, 0, 0, $newWatermarkWidth, $newWatermarkHeight, $watermarkWidth, $watermarkHeight);
-    
-    // postion
-    $xPosition = ($width - $newWatermarkWidth) / 2; // horizontally centered
-    $yPosition = ($height - $newWatermarkHeight) / 2; // vertically centered
-
-    // Apply watermark
-    imagealphablending($newImage, true);
-    imagecopymerge($newImage, $tempWatermark, $xPosition, $yPosition, 0, 0, $newWatermarkWidth, $newWatermarkHeight, 30);
-
-    imagedestroy($tempWatermark);
-
-    // Save the watermarked image to a temporary file
-    $outputPath = '../temp/' . uniqid() . '.png';
-    
-    // Set alpha blending off and save alpha on for output
-    imagealphablending($newImage, false);
-    imagesavealpha($newImage, true);
-    
-    // Save as PNG to preserve transparency
-    imagepng($newImage, $outputPath);
-    
-    imagedestroy($image);
-    imagedestroy($watermark);
-    imagedestroy($newImage);
-    
-    return $outputPath;
-}
-?>
 
